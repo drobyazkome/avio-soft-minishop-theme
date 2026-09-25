@@ -2060,12 +2060,13 @@
 .theme-key-avio-soft .period-card small { font-size: clamp(10px, 2.9vw, 11px); }
 
 /* Header with adjustable limits (owner's call): back · "Tariff settings" · close on top,
+   the button standing right next to close;
    the tariff name moves to the next line, then its description and the chips. */
 .theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit {
   grid-column: 2;
   grid-row: 1;
   align-self: center;
-  justify-self: start;
+  justify-self: end;
   max-width: 100%;
 }
 .theme-key-avio-soft.app-shell .payment-dialog-body:not(:has(> .back-inline)) > .checkout-tariff-card.checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit { grid-column: 1 / 3; }

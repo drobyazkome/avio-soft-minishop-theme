@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": {
-    "ru": "Avio Мягкий: тема с нуля — небо с облаками и ночное небо, Nunito, объёмные кнопки, пастельные тарифы, замок-персонаж, который спит без подписки, радуется с ней и тревожится, когда она кончается. Компактная оплата без прокрутки, все окна шторками на телефоне, на компьютере — панель сверху вместо колонки слева.",
+    "ru": "Avio Soft: тема с нуля — небо с облаками и ночное небо, Nunito, объёмные кнопки, пастельные тарифы, замок-персонаж, который спит без подписки, радуется с ней и тревожится, когда она кончается. Компактная оплата без прокрутки, все окна шторками на телефоне, на компьютере — панель сверху вместо колонки слева.",
     "en": "Avio Soft: a theme built from scratch — a sky with clouds and a night sky, Nunito, chunky buttons, pastel tariffs and a padlock mascot that sleeps without a subscription, smiles with one and worries when it runs out. A compact checkout that fits without scrolling, every window as a sheet on phones, and a top bar instead of the left rail on desktop."
   },
   "author": {

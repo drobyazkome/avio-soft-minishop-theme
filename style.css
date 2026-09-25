@@ -1625,7 +1625,8 @@
 @media (min-width: 1024px) { .theme-key-avio-soft .payment-dialog-card { --s-sheet-top: var(--sp-4); } }
 
 /* Tariff settings: a labelled button next to the name. The name keeps its full width,
-   and the button moves to the next line when both do not fit. */
+   and the button moves to the next line when both do not fit. Core always sets <html lang="ru">,
+   so the English label keys off the button's own English title. */
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits:not(.is-editing) {
   display: flex;
   flex-wrap: wrap;
@@ -1650,7 +1651,7 @@
   white-space: nowrap;
 }
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close)::after { content: "Настройка тарифа"; }
-.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close):lang(en)::after { content: "Plan settings"; }
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close)[title^="Change"]::after { content: "Plan settings"; }
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close) svg { flex: none; width: 16px; height: 16px; }
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close):active { transform: translateY(3px); box-shadow: 0 0 0 #9fd6ff; }
 

@@ -1,0 +1,13 @@
+Avio theme — private project assets.
+
+This package is prepared for the Avio project owner. No public license is
+granted for the Avio brand or illustrations by this package. Original rights
+remain with their respective owners. Do not redistribute without permission.
+
+Bundled fonts are distributed separately under the SIL Open Font License 1.1.
+See fonts/Onest-OFL.txt and fonts/Rubik-OFL.txt for their copyright notices,
+conditions, and reserved font names. The font binaries are subset to Latin and
+Cyrillic and converted to WOFF2; neither font declares a Reserved Font Name.
+
+Icons in icons/ are from Lucide under the ISC License, see icons/LICENSE-lucide.txt.
+Application icons in images/app-*.webp belong to their owners, see images/APP-ICONS.md.

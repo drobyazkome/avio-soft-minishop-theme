@@ -1594,3 +1594,111 @@
 
 /* A disabled "Next" stays opaque: it sticks over the list and nothing should show through. */
 .theme-key-avio-soft.app-shell .payment-submit-button:disabled { opacity: 1; }
+
+/* ══ No scroll where it is not needed (2.2.0) ═══════════════════════════════ */
+
+/* The preloaded mascot frames sit in the top corner. At the bottom of the page they made it
+   one pixel taller than the window, and a mouse scrollbar showed up on every screen. */
+.theme-key-avio-soft.app-shell::after { top: 0; left: 0; }
+
+/* Home: the lock takes only the free space. On a short window it shrinks, and when less
+   than 56 px is left it steps aside instead of pushing the page into a scroll. */
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after {
+  min-height: 0;
+  background-size: auto clamp(0px, (100% - 56px) * 999, 100%);
+}
+
+/* Step 2 of checkout: the close button always floats in the corner next to the tariff,
+   with or without the service description, so no row is spent on it alone. */
+.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card) { grid-template-rows: minmax(0, 1fr) auto; }
+.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card) > .dialog-head:not(:has(.payment-checkout-header)) { display: contents; }
+.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card) > .dialog-head:not(:has(.payment-checkout-header)) > .dialog-title-block { display: none; }
+.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card) .dialog-close-button {
+  position: absolute;
+  top: calc(var(--s-sheet-top, 24px) + 6px);
+  right: var(--sp-4);
+  z-index: 2;
+}
+.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card.has-adjustable-limits:not(.is-editing)) .dialog-close-button { top: var(--s-sheet-top, 24px); }
+.theme-key-avio-soft .payment-dialog-card { --s-sheet-top: var(--sp-6); }
+.theme-key-avio-soft .dialog > .payment-dialog-card { padding-top: var(--s-sheet-top); }
+@media (min-width: 1024px) { .theme-key-avio-soft .payment-dialog-card { --s-sheet-top: var(--sp-4); } }
+
+/* Tariff settings: a labelled button next to the name. The name keeps its full width,
+   and the button moves to the next line when both do not fit. */
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits:not(.is-editing) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--sp-2, 8px);
+  row-gap: var(--sp-2, 8px);
+}
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits:not(.is-editing) .checkout-tariff-title-line { flex: 1 0 auto; max-width: 100%; }
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits:not(.is-editing) :is(.checkout-tariff-summary-static, .checkout-tariff-editor-mode) { flex: 1 0 100%; }
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close) {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 44px;
+  margin-left: auto;
+  padding: 0 14px 0 12px;
+  border-radius: 14px;
+  color: var(--s-link);
+  font: 800 15px/1 var(--font-sans);
+  white-space: nowrap;
+}
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close)::after { content: "Настройка тарифа"; }
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close):lang(en)::after { content: "Plan settings"; }
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close) svg { flex: none; width: 16px; height: 16px; }
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close):active { transform: translateY(3px); box-shadow: 0 0 0 #9fd6ff; }
+
+/* Promo code: a right-aligned link right under the payment method. */
+.theme-key-avio-soft .payment-dialog-body > .checkout-promo-row { order: 2; }
+.theme-key-avio-soft.app-shell .checkout-promo-row:not(.is-applied, .is-error, :focus-within):has(.checkout-promo-input:placeholder-shown) {
+  margin-top: calc(var(--sp-1, 4px) * -1);
+}
+.theme-key-avio-soft.app-shell .checkout-promo-row:not(.is-applied, .is-error, :focus-within):has(.checkout-promo-input:placeholder-shown) .checkout-promo-input-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+.theme-key-avio-soft.app-shell .checkout-promo-row:not(.is-applied, .is-error, :focus-within):has(.checkout-promo-input:placeholder-shown) .input.checkout-promo-input {
+  width: auto;
+  max-width: 100%;
+  height: 36px;
+  min-height: 36px;
+  padding-inline: var(--sp-2, 8px) var(--sp-4, 16px);
+  field-sizing: content;
+  text-align: right;
+}
+
+/* Short windows (Telegram Desktop opens the app at about 420 × 520): the sheet and the
+   home screen tighten so the whole step fits without a scroll. */
+@media (max-height: 700px) and (max-width: 1023px) {
+  .theme-key-avio-soft .payment-dialog-card { --s-sheet-top: 20px; }
+  .theme-key-avio-soft .payment-dialog-card::before { top: 6px; }
+  .theme-key-avio-soft .payment-dialog-body { gap: 10px; }
+  .theme-key-avio-soft .period-card { padding: var(--sp-2, 8px) var(--sp-1, 4px); }
+  .theme-key-avio-soft .payment-submit-button { min-height: 50px; margin-top: 0; }
+  .theme-key-avio-soft :is(.payment-method-select-trigger, .balance-discount) { min-height: 48px; }
+  .theme-key-avio-soft .balance-discount { padding-block: 6px; }
+
+  .theme-key-avio-soft.app-shell .home-brand .brand-mark.brand-mark-xl { width: 70px; height: 43px; }
+  .theme-key-avio-soft .home-bottom { gap: var(--sp-2, 8px); }
+  .theme-key-avio-soft .status-card:not(.status-card-inactive) { padding: 12px 14px 10px; }
+  .theme-key-avio-soft .status-card .sub-status { gap: 6px; }
+  .theme-key-avio-soft .traffic-card-compact { padding: 8px 14px 10px; }
+  .theme-key-avio-soft .progress { height: 10px; margin-top: 6px; }
+  .theme-key-avio-soft .home-bottom .action-stack { gap: 6px; }
+  .theme-key-avio-soft .home-bottom .action-stack .btn { min-height: 46px; }
+  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand { gap: 0; }
+  .theme-key-avio-soft {
+    --bottom-nav-height: 60px;
+    --bottom-nav-clearance: calc(var(--bottom-nav-height) + var(--bottom-nav-bottom) + 14px);
+  }
+  .theme-key-avio-soft .bottom-nav { height: 60px; min-height: 60px; }
+  .theme-key-avio-soft .phone-screen.home-screen { padding-top: max(10px, env(safe-area-inset-top, 0px)); padding-bottom: 0; }
+  .theme-key-avio-soft .home-layout { min-height: calc(100dvh - max(10px, env(safe-area-inset-top, 0px))); }
+  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry { top: calc(var(--content-safe-area-top, 0px) + 15px); }
+}

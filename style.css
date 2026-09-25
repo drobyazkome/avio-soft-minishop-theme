@@ -2035,14 +2035,12 @@
   --s-admin: #6a4cf0;
   --s-admin-floor: #4b32c4;
   --s-admin-ink: #5a3fd6;
-  --s-admin-edge: #d4c8ff;
 }
 .theme-key-avio-soft.theme-variant-dark {
   --s-gift: #ff8ab3;
   --s-gift-halo: rgb(255 138 179 / .24);
   --s-admin: #7b5cff;
   --s-admin-ink: #c9bcff;
-  --s-admin-edge: #4a3f7a;
 }
 
 /* Bonuses: the gift in the tab bar is pink, and every few seconds it shakes, glows and throws
@@ -2110,33 +2108,18 @@
   .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active)::after { display: none; }
 }
 
-/* Admins: on phones the admin panel takes the Help slot in the tab bar, in the admin violet
-   (the round button on the home screen was the same entry and is gone). Everyone else keeps
-   Help there; the desktop bar shows both. */
+/* Admins: on phones Help leaves the tab bar and the admin panel stands at its right end as a
+   plain tab with a violet icon and label (the round button on the home screen was the same
+   entry and is gone). Everyone else keeps Help; the desktop bar shows both. */
 @media (max-width: 1023px) {
   .theme-key-avio-soft.app-shell .bottom-nav:has(> .rail-admin-entry) > button.attention-wrap:has(+ button.attention-wrap) { display: none; }
-  .theme-key-avio-soft.app-shell .bottom-nav:has(> .rail-admin-entry) > button.attention-wrap:not(:has(~ button.attention-wrap)),
-  .theme-key-avio-soft.app-shell .bottom-nav:has(> .rail-admin-entry) > button.attention-wrap:not(:has(~ button.attention-wrap)) ~ button:not(.rail-admin-entry) { order: 2; }
   .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry {
     display: grid !important;
-    order: 1;
-    border-color: var(--s-admin-edge);
-    background: var(--s-lilac);
     color: var(--s-admin-ink);
   }
-  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > svg {
-    box-sizing: content-box;
-    width: 16px;
-    height: 16px;
-    margin: -2px;
-    padding: 6px;
-    border-radius: 50%;
-    background: var(--s-admin);
-    color: #fff;
-    stroke-width: 2.4;
-  }
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > svg { color: var(--s-admin); }
   .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > .bottom-nav-label { font-size: 0; }
-  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > .bottom-nav-label::after { content: "Админка"; font-size: 11px; font-weight: 900; }
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > .bottom-nav-label::after { content: "Админ"; font-size: 11px; }
   .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry[aria-label="Admin panel"] > .bottom-nav-label::after { content: "Admin"; }
 }
 @media (max-width: 374px) {

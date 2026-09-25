@@ -1725,19 +1725,20 @@
 }
 
 /* Checkout header: back · tariff name · close in one compact row. Under it the tariff
-   description in small type, the tariff settings button and the limit chips. */
-.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card:not(.is-editing)) {
+   description in small type, the tariff settings button and the limit chips. The same layout
+   holds while the limits are being edited: the sliders open under the chips. */
+.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card.checkout-tariff-card) {
   grid-template-columns: var(--s-tap) minmax(0, 1fr) var(--s-tap);
   column-gap: var(--sp-2, 8px);
   row-gap: var(--sp-2, 8px);
 }
-.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card:not(.is-editing)) > .period-grid { margin-top: var(--sp-2, 8px); }
-.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card:not(.is-editing)) > :is(.payment-submit-button, .payment-method-picker, .balance-discount) { margin-top: 2px; }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing),
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) > .checkout-tariff-card-head,
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-line { display: contents; }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) > :is(.checkout-tariff-summary-button, .checkout-tariff-editor-mode) { display: none; }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-line > strong {
+.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card.checkout-tariff-card) > .period-grid { margin-top: var(--sp-2, 8px); }
+.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card.checkout-tariff-card) > :is(.payment-submit-button, .payment-method-picker, .balance-discount) { margin-top: 2px; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card,
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card > .checkout-tariff-card-head,
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-title-line { display: contents; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card > .checkout-tariff-summary-button { display: none; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-title-line > strong {
   display: flex;
   grid-column: 2;
   grid-row: 1;
@@ -1752,14 +1753,14 @@
   white-space: normal;
   overflow-wrap: anywhere;
 }
-.theme-key-avio-soft.app-shell .payment-dialog-body:not(:has(> .back-inline)) > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-line > strong { grid-column: 1 / 3; }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-description-line {
+.theme-key-avio-soft.app-shell .payment-dialog-body:not(:has(> .back-inline)) > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-title-line > strong { grid-column: 1 / 3; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-description-line {
   display: block;
   grid-column: 1 / -1;
   margin-top: -2px;
 }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-separator { display: none; }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-description-line small {
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-title-separator { display: none; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-description-line small {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
@@ -1770,21 +1771,21 @@
   line-height: 1.35;
   white-space: normal;
 }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-edit:not(.checkout-tariff-close) {
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-edit:not(.checkout-tariff-close) {
   grid-column: 1 / -1;
   grid-row: auto;
   justify-self: start;
   height: 40px;
   margin: 0;
 }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-summary-static {
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-summary-static {
   display: block;
   grid-column: 1 / -1;
   grid-row: auto;
   width: auto;
   padding: 0;
 }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-facts {
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-facts {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -1794,20 +1795,20 @@
   border: 0;
 }
 /* Chips of a tariff without adjustable limits look like the adjustable ones. */
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.has-adjustable-limits) .checkout-tariff-fact:not(:has(> .checkout-addon-value > span[aria-label])) {
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card:not(.has-adjustable-limits) .checkout-tariff-fact:not(:has(> .checkout-addon-value > span[aria-label])) {
   display: inline-flex;
   align-items: center;
   min-height: 32px;
   padding: 0;
 }
-.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.has-adjustable-limits) .checkout-addon-value {
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card:not(.has-adjustable-limits) .checkout-addon-value {
   display: inline-flex;
   min-height: 32px;
   align-items: center;
   padding: 0 12px;
   font-size: 14px;
 }
-.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card:not(.is-editing)) .dialog-close-button { top: var(--s-sheet-top, 24px); }
+.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card) .dialog-close-button { top: var(--s-sheet-top, 24px); }
 
 /* Payment method: the chosen method sits in the middle, the chevron stays at the edge. */
 .theme-key-avio-soft .payment-method-select-trigger {
@@ -1948,4 +1949,134 @@
 @keyframes s-nudge { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(3px, 2px); } }
 @media (prefers-reduced-motion: reduce) {
   .theme-key-avio-soft.app-shell .install-step .install-actions::before { animation: none; }
+}
+
+/* ══ 2.3.1: limits editor in the same layout, periods always in one row ═════ */
+
+/* The sliders open as a full-width card under the chips (Core animates the rows 0fr → 1fr);
+   collapsed, the block takes back the row gap it would add. */
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card > .checkout-tariff-editor-mode {
+  grid-column: 1 / -1;
+  margin-top: calc(var(--sp-2, 8px) * -1);
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing > .checkout-tariff-editor-mode { margin-top: 0; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-editor-inner { padding: 0; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-editor-facts { gap: var(--sp-2, 8px); }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-editor-fact {
+  gap: 6px;
+  padding: 10px 14px 12px;
+  border: 2px solid var(--s-edge);
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: none;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-editor-copy {
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--sp-2, 8px);
+  row-gap: 2px;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-editor-copy > :first-child { flex: 1 0 auto; max-width: 100%; font-size: 14px; font-weight: 800; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-editor-copy small {
+  flex: 1 1 auto;
+  overflow: visible;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  white-space: normal;
+}
+
+/* While editing, the chips keep showing the chosen values (they update with the sliders). */
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-tariff-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-tariff-fact {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--s-mint);
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-tariff-fact::before,
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-tariff-fact::after { display: none; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-tariff-fact-label { display: inline-flex; position: static; width: auto; height: auto; clip-path: none; color: var(--s-go-floor); }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-tariff-facts .checkout-addon-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-addon-value { color: var(--text); font-size: 14px; font-weight: 900; }
+.theme-key-avio-soft.theme-variant-dark .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.is-editing .checkout-tariff-fact-label { color: var(--success-text); }
+
+/* The settings button becomes "Done" in the same place. */
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-edit.checkout-tariff-close {
+  display: inline-flex;
+  grid-column: 1 / -1;
+  grid-row: auto;
+  justify-self: start;
+  align-items: center;
+  width: auto;
+  height: 40px;
+  margin: 0;
+  padding: 0 16px;
+  border: 2px solid #9fd6ff;
+  border-radius: 14px;
+  background: var(--s-pick-soft);
+  box-shadow: 0 3px 0 #9fd6ff;
+  color: var(--s-link);
+  font: 800 15px/1 var(--font-sans);
+  white-space: nowrap;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-edit.checkout-tariff-close svg { display: none; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-edit.checkout-tariff-close::after { content: "Готово"; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-edit.checkout-tariff-close[title="Close"]::after { content: "Done"; }
+
+/* Periods: always one row (up to four); the type shrinks with the screen instead. */
+.theme-key-avio-soft .period-grid,
+.theme-key-avio-soft .period-grid.period-grid-two-columns {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+.theme-key-avio-soft .period-grid:has(> :nth-child(5)) {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.theme-key-avio-soft .period-card { min-width: 0; padding-inline: 2px; }
+.theme-key-avio-soft .period-card strong { font-size: clamp(11px, 3.3vw, 13px); overflow-wrap: anywhere; }
+.theme-key-avio-soft .period-card > span { font-size: clamp(14px, 4.5vw, 18px); }
+.theme-key-avio-soft .period-card small { font-size: clamp(10px, 2.9vw, 11px); }
+
+/* Header with adjustable limits (owner's call): back · "Tariff settings" · close on top,
+   the tariff name moves to the next line, then its description and the chips. */
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  justify-self: start;
+  max-width: 100%;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body:not(:has(> .back-inline)) > .checkout-tariff-card.checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit { grid-column: 1 / 3; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.has-adjustable-limits .checkout-tariff-title-line > strong,
+.theme-key-avio-soft.app-shell .payment-dialog-body:not(:has(> .back-inline)) > .checkout-tariff-card.checkout-tariff-card.has-adjustable-limits .checkout-tariff-title-line > strong {
+  grid-column: 1 / -1;
+  grid-row: auto;
+  min-height: 0;
+  margin-top: 2px;
+  font-size: 22px;
+}
+@media (max-width: 359px) {
+  .theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-edit { gap: 4px; padding-inline: 10px; font-size: 13px; }
 }

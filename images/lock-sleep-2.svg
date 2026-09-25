@@ -11,6 +11,6 @@
   <circle cx="44" cy="128" r="8" fill="#ff9eb5" opacity=".5"/>
   <circle cx="116" cy="128" r="8" fill="#ff9eb5" opacity=".5"/>
   <ellipse cx="80" cy="134" rx="6.5" ry="5" fill="#20334a"/>
-  <path d="M124 30h13l-13 13h13" fill="none" stroke="#7d879b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M140 8h9l-9 9h9" fill="none" stroke="#7d879b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M128 22h15l-15 15h15" fill="none" stroke="#7d879b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M146 0h10l-10 10h10" fill="none" stroke="#7d879b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

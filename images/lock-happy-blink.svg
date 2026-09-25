@@ -7,12 +7,7 @@
   <path d="M50 80V56a30 30 0 0 1 60 0v24" fill="none" stroke="url(#m)" stroke-width="14"/>
   <rect x="26" y="72" width="108" height="86" rx="28" fill="url(#b)"/>
   <ellipse cx="50" cy="88" rx="15" ry="7" fill="#fff" opacity=".35" transform="rotate(-18 50 88)"/>
-    <ellipse cx="60" cy="108" rx="10" ry="12" fill="#fff"/>
-    <ellipse cx="100" cy="108" rx="10" ry="12" fill="#fff"/>
-    <circle cx="62" cy="111" r="6" fill="#20334a"/>
-    <circle cx="102" cy="111" r="6" fill="#20334a"/>
-    <circle cx="64.2" cy="108" r="2" fill="#fff"/>
-    <circle cx="104.2" cy="108" r="2" fill="#fff"/>
+    <path d="M50 110q10-9 20 0M90 110q10-9 20 0" fill="none" stroke="#20334a" stroke-width="5" stroke-linecap="round"/>
   <circle cx="44" cy="128" r="8" fill="#ff9eb5" opacity=".75"/>
   <circle cx="116" cy="128" r="8" fill="#ff9eb5" opacity=".75"/>
   <path d="M67 130q13 14 26 0" fill="none" stroke="#20334a" stroke-width="5" stroke-linecap="round"/>

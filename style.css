@@ -1356,34 +1356,9 @@
   .theme-key-avio-soft .progress span { animation: none; }
 }
 
-/* ══ Home: admin panel one tap away (phones; the desktop bar already has it) ═ */
+/* The tab bar on phones is an opaque surface; the admin panel lives in it (see 2.4.0). */
 @media (max-width: 1023px) {
   .theme-key-avio-soft.app-shell .bottom-nav { -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry {
-    position: fixed;
-    top: calc(var(--content-safe-area-top, 0px) + 26px);
-    right: 16px;
-    z-index: 81;
-    display: inline-flex !important;
-    width: auto;
-    height: 40px;
-    min-height: 40px;
-    align-items: center;
-    padding: 0 16px;
-    border: 2px solid var(--s-edge);
-    border-radius: 999px;
-    background: var(--s-lilac);
-    box-shadow: 0 3px 0 var(--s-edge);
-    color: var(--text);
-  }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry .bottom-nav-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 900;
-    letter-spacing: 0;
-  }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry::before { content: ""; position: absolute; inset: -4px; }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry:active { transform: translateY(3px); box-shadow: 0 0 0 var(--s-edge); }
 }
 
 /* ══ Checkout, round two ═══════════════════════════════════════════════════ */
@@ -1701,7 +1676,6 @@
   .theme-key-avio-soft .bottom-nav { height: 60px; min-height: 60px; }
   .theme-key-avio-soft .phone-screen.home-screen { padding-top: max(10px, env(safe-area-inset-top, 0px)); padding-bottom: 0; }
   .theme-key-avio-soft .home-layout { min-height: calc(100dvh - max(10px, env(safe-area-inset-top, 0px))); }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry { top: calc(var(--content-safe-area-top, 0px) + 15px); }
 }
 
 /* ══ Round three (2.3.0): floating windows, centred brand, a guided install ══ */
@@ -1825,46 +1799,17 @@
 }
 
 /* Home: the logo stands in the middle, clear of Telegram's own buttons in full screen,
-   and a little larger. Admin is a small bright round button on the right. */
+   and a little larger. */
 @media (max-width: 1023px) {
-  .theme-key-avio-soft {
-    --s-home-logo-top: calc(max(16px, env(safe-area-inset-top, 0px)) + 14px);
-    --s-home-logo-h: 69px;
-  }
+  .theme-key-avio-soft { --s-home-logo-h: 69px; }
   .theme-key-avio-soft .home-layout { padding-top: 14px; }
   .theme-key-avio-soft .home-brand { justify-items: center; }
   .theme-key-avio-soft.app-shell .home-brand .brand-mark.brand-mark-xl { width: 112px; height: var(--s-home-logo-h); }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry {
-    top: max(calc(var(--content-safe-area-top, 0px) + 8px), calc(var(--s-home-logo-top) + (var(--s-home-logo-h) - 40px) / 2));
-    right: 16px;
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
-    justify-content: center;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: #7b5cff;
-    box-shadow: 0 3px 0 #5536d6;
-    color: #fff;
-  }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry svg { width: 20px; height: 20px; stroke-width: 2.4; }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry .bottom-nav-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry:active { box-shadow: 0 0 0 #5536d6; }
   /* Every other screen: the brand row is centred too. */
   .theme-key-avio-soft .app-header .brand-row { justify-content: center; }
 }
 @media (max-height: 700px) and (max-width: 1023px) {
   .theme-key-avio-soft {
-    --s-home-logo-top: calc(max(10px, env(safe-area-inset-top, 0px)) + 4px);
     --s-home-logo-h: 43px;
   }
   .theme-key-avio-soft .home-layout { padding-top: 4px; }
@@ -2080,4 +2025,222 @@
 }
 @media (max-width: 359px) {
   .theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card .checkout-tariff-edit { gap: 4px; padding-inline: 10px; font-size: 13px; }
+}
+
+/* ══ 2.4.0: a gift that asks to be opened, admin in the tab bar, one-line headers ══ */
+
+.theme-key-avio-soft {
+  --s-gift: #e5487f;
+  --s-gift-halo: #ffd9e6;
+  --s-admin: #6a4cf0;
+  --s-admin-floor: #4b32c4;
+  --s-admin-ink: #5a3fd6;
+  --s-admin-edge: #d4c8ff;
+}
+.theme-key-avio-soft.theme-variant-dark {
+  --s-gift: #ff8ab3;
+  --s-gift-halo: rgb(255 138 179 / .24);
+  --s-admin: #7b5cff;
+  --s-admin-ink: #c9bcff;
+  --s-admin-edge: #4a3f7a;
+}
+
+/* Bonuses: the gift in the tab bar is pink, and every few seconds it shakes, glows and throws
+   confetti so the referral programme gets noticed. It rests while its own screen is open. */
+.theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active) > svg {
+  color: var(--s-gift);
+  transform-origin: 50% 85%;
+  animation: s-gift-shake 5s ease-in-out 1.2s infinite;
+}
+@media (max-width: 1023px) {
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift) > svg { grid-area: 1 / 1; }
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift) > .bottom-nav-label { grid-area: 2 / 1; }
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active) > .bottom-nav-label { color: var(--s-gift); }
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active)::before,
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active)::after {
+    content: "";
+    grid-area: 1 / 1;
+    place-self: center;
+    pointer-events: none;
+  }
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active)::before {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--s-gift-halo) 0 52%, transparent 72%);
+    animation: s-gift-glow 5s ease-in-out 1.2s infinite;
+  }
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active)::after {
+    width: 60px;
+    height: 40px;
+    background:
+      radial-gradient(circle at 10% 38%, #ffc53d 0 2.5px, transparent 3px),
+      radial-gradient(circle at 24% 8%, #1c9be8 0 2px, transparent 2.5px),
+      radial-gradient(circle at 20% 82%, #7b5cff 0 2px, transparent 2.5px),
+      radial-gradient(circle at 78% 6%, #ff5c8a 0 2.5px, transparent 3px),
+      radial-gradient(circle at 92% 44%, #2bb673 0 2px, transparent 2.5px),
+      radial-gradient(circle at 82% 86%, #ffc53d 0 2px, transparent 2.5px),
+      radial-gradient(circle at 50% 0%, #2bb673 0 1.5px, transparent 2px);
+    opacity: 0;
+    animation: s-gift-burst 5s ease-out 1.2s infinite;
+  }
+}
+@keyframes s-gift-shake {
+  0%, 72%, 100% { transform: none; }
+  75% { transform: translateY(-3px) rotate(-14deg) scale(1.16); }
+  78% { transform: translateY(-3px) rotate(12deg) scale(1.16); }
+  81% { transform: translateY(-2px) rotate(-10deg) scale(1.12); }
+  84% { transform: translateY(-1px) rotate(7deg) scale(1.06); }
+  87% { transform: rotate(-3deg); }
+  90% { transform: none; }
+}
+@keyframes s-gift-glow {
+  0%, 70%, 100% { transform: scale(.8); opacity: .75; }
+  80% { transform: scale(1.3); opacity: 1; }
+}
+@keyframes s-gift-burst {
+  0%, 74% { transform: scale(.35) rotate(0deg); opacity: 0; }
+  79% { opacity: 1; }
+  90% { transform: scale(1.08) rotate(10deg); opacity: 1; }
+  97%, 100% { transform: scale(1.18) rotate(14deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active) > svg,
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active)::before { animation: none; }
+  .theme-key-avio-soft .bottom-nav > button:has(> svg.lucide-gift):not(.active)::after { display: none; }
+}
+
+/* Admins: on phones the admin panel takes the Help slot in the tab bar, in the admin violet
+   (the round button on the home screen was the same entry and is gone). Everyone else keeps
+   Help there; the desktop bar shows both. */
+@media (max-width: 1023px) {
+  .theme-key-avio-soft.app-shell .bottom-nav:has(> .rail-admin-entry) > button.attention-wrap:has(+ button.attention-wrap) { display: none; }
+  .theme-key-avio-soft.app-shell .bottom-nav:has(> .rail-admin-entry) > button.attention-wrap:not(:has(~ button.attention-wrap)),
+  .theme-key-avio-soft.app-shell .bottom-nav:has(> .rail-admin-entry) > button.attention-wrap:not(:has(~ button.attention-wrap)) ~ button:not(.rail-admin-entry) { order: 2; }
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry {
+    display: grid !important;
+    order: 1;
+    border-color: var(--s-admin-edge);
+    background: var(--s-lilac);
+    color: var(--s-admin-ink);
+  }
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > svg {
+    box-sizing: content-box;
+    width: 16px;
+    height: 16px;
+    margin: -2px;
+    padding: 6px;
+    border-radius: 50%;
+    background: var(--s-admin);
+    color: #fff;
+    stroke-width: 2.4;
+  }
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > .bottom-nav-label { font-size: 0; }
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > .bottom-nav-label::after { content: "Админка"; font-size: 11px; font-weight: 900; }
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry[aria-label="Admin panel"] > .bottom-nav-label::after { content: "Admin"; }
+}
+@media (max-width: 374px) {
+  .theme-key-avio-soft.app-shell .bottom-nav > button.rail-admin-entry > .bottom-nav-label::after { font-size: 10px; }
+}
+
+/* Home traffic: the name and the reset period on one line, the volume on the next with the
+   percentage at the right end, then the meter. */
+.theme-key-avio-soft .traffic-summary-row {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+  row-gap: 2px;
+}
+.theme-key-avio-soft .traffic-summary-left { justify-self: start; max-width: 100%; gap: 6px; }
+.theme-key-avio-soft .premium-summary-copy {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.theme-key-avio-soft .premium-summary-copy::first-line { color: inherit; font-size: inherit; font-weight: inherit; }
+.theme-key-avio-soft .traffic-summary-left .traffic-summary-separator { display: inline; height: auto; overflow: visible; font-size: 0; }
+.theme-key-avio-soft .traffic-summary-left .traffic-summary-separator::before { content: "·"; color: var(--dim); font-size: 14px; }
+.theme-key-avio-soft .traffic-summary-right {
+  display: flex;
+  justify-self: stretch;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2, 8px);
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 900;
+  text-align: left;
+}
+.theme-key-avio-soft .traffic-summary-right .traffic-summary-separator { display: none; }
+.theme-key-avio-soft .traffic-summary-right > span:last-child { color: var(--muted); font-size: 15px; font-weight: 800; }
+
+/* Traffic top-ups: filled in the colour of their meter so they are hard to miss —
+   violet for premium servers, blue for regular traffic. */
+.theme-key-avio-soft.app-shell .action-stack > .btn[data-webapp-action="open-premium-topup"] { --s-tone: var(--s-admin); --s-tone-floor: var(--s-admin-floor); }
+.theme-key-avio-soft.app-shell .action-stack > .btn[data-webapp-action="open-regular-topup"] { --s-tone: #1170ad; --s-tone-floor: #0a4f7c; }
+.theme-key-avio-soft.app-shell .action-stack > .btn:is([data-webapp-action="open-premium-topup"], [data-webapp-action="open-regular-topup"]),
+.theme-key-avio-soft.app-shell .action-stack > .btn:is([data-webapp-action="open-premium-topup"], [data-webapp-action="open-regular-topup"]):is(:hover, :focus-visible):not(:disabled) {
+  border-color: transparent;
+  background: var(--s-tone);
+  box-shadow: 0 4px 0 var(--s-tone-floor);
+  color: #fff;
+  font-size: 16px;
+  text-wrap: balance;
+}
+.theme-key-avio-soft.app-shell .action-stack > .btn:is([data-webapp-action="open-premium-topup"], [data-webapp-action="open-regular-topup"]):active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--s-tone-floor);
+}
+
+/* Checkout header: back, the title or "Tariff settings", and close stand on one line at one
+   height, whatever the step. */
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card.checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit {
+  height: var(--s-tap);
+  min-height: var(--s-tap);
+}
+/* A step without a tariff card keeps its title in the window header, so the list below slides up
+   under it and its back button lands on that line, left of the title. */
+.theme-key-avio-soft .payment-dialog-card:not(:has(.checkout-tariff-card)):has(> .dialog-head .payment-checkout-header):has(.payment-dialog-body > .back-inline) { row-gap: var(--sp-3, 12px); }
+.theme-key-avio-soft .payment-dialog-card:not(:has(.checkout-tariff-card)):has(> .dialog-head .payment-checkout-header):has(.payment-dialog-body > .back-inline) > .dialog-head {
+  min-height: var(--s-tap);
+  padding-left: calc(var(--s-tap) + var(--sp-3, 12px));
+}
+.theme-key-avio-soft .payment-dialog-card:not(:has(.checkout-tariff-card)):has(> .dialog-head .payment-checkout-header):has(.payment-dialog-body > .back-inline) > .dialog-head .dialog-close-button {
+  position: relative;
+  z-index: 3;
+}
+.theme-key-avio-soft .payment-dialog-card:not(:has(.checkout-tariff-card)):has(> .dialog-head .payment-checkout-header):has(.payment-dialog-body > .back-inline) > .dialog-body-scroll {
+  margin-top: calc(-1 * var(--s-tap) - var(--sp-3, 12px));
+}
+
+/* Top-up: the promise that bought traffic does not expire is a statement, not a footnote. */
+.theme-key-avio-soft.app-shell .option-list + .topup-carryover-note {
+  position: relative;
+  gap: 4px;
+  padding: 12px 14px 12px 50px;
+  border: 2px solid color-mix(in srgb, var(--s-go) 28%, var(--s-edge));
+  border-radius: 18px;
+  background: var(--s-mint);
+  box-shadow: none;
+}
+.theme-key-avio-soft.app-shell .option-list + .topup-carryover-note::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 26px;
+  height: 26px;
+  background: var(--s-go);
+  -webkit-mask: url("images/infinity.svg") center / contain no-repeat;
+  mask: url("images/infinity.svg") center / contain no-repeat;
+}
+.theme-key-avio-soft.app-shell.theme-variant-dark .option-list + .topup-carryover-note::before { background: var(--success-text, #5fd49a); }
+.theme-key-avio-soft.app-shell .option-list + .topup-carryover-note p {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.35;
 }

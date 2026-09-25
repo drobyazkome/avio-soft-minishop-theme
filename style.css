@@ -1703,3 +1703,249 @@
   .theme-key-avio-soft .home-layout { min-height: calc(100dvh - max(10px, env(safe-area-inset-top, 0px))); }
   .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry { top: calc(var(--content-safe-area-top, 0px) + 15px); }
 }
+
+/* ══ Round three (2.3.0): floating windows, centred brand, a guided install ══ */
+
+/* Every sheet on a phone is a floating window: a margin from the screen edges, all corners round. */
+@media (max-width: 1023px) {
+  .theme-key-avio-soft .dialog:has(> .dialog-card) {
+    padding: max(28px, var(--content-safe-area-top)) var(--s-float) var(--s-float);
+  }
+  .theme-key-avio-soft .dialog > .dialog-card {
+    max-height: calc(100dvh - max(28px, var(--content-safe-area-top)) - var(--s-float));
+    border-radius: 30px;
+    padding-bottom: max(var(--sp-4, 16px), calc(var(--content-safe-area-bottom, 0px) - var(--s-float)));
+  }
+}
+.theme-key-avio-soft { --s-float: 10px; }
+/* Telegram full screen adds the status bar to the top padding: the home screen still ends at the
+   bottom of the window instead of scrolling by that much. */
+@media (max-width: 1023px) and (min-height: 701px) {
+  .theme-key-avio-soft .home-layout { min-height: calc(100dvh - max(16px, env(safe-area-inset-top, 0px)) - 18px); }
+}
+
+/* Checkout header: back · tariff name · close in one compact row. Under it the tariff
+   description in small type, the tariff settings button and the limit chips. */
+.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card:not(.is-editing)) {
+  grid-template-columns: var(--s-tap) minmax(0, 1fr) var(--s-tap);
+  column-gap: var(--sp-2, 8px);
+  row-gap: var(--sp-2, 8px);
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card:not(.is-editing)) > .period-grid { margin-top: var(--sp-2, 8px); }
+.theme-key-avio-soft.app-shell .payment-dialog-body:has(> .checkout-tariff-card:not(.is-editing)) > :is(.payment-submit-button, .payment-method-picker, .balance-discount) { margin-top: 2px; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing),
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) > .checkout-tariff-card-head,
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-line { display: contents; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) > :is(.checkout-tariff-summary-button, .checkout-tariff-editor-mode) { display: none; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-line > strong {
+  display: flex;
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  min-height: var(--s-tap);
+  align-items: center;
+  overflow: visible;
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.15;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body:not(:has(> .back-inline)) > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-line > strong { grid-column: 1 / 3; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-description-line {
+  display: block;
+  grid-column: 1 / -1;
+  margin-top: -2px;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-title-separator { display: none; }
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-description-line small {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  white-space: normal;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-edit:not(.checkout-tariff-close) {
+  grid-column: 1 / -1;
+  grid-row: auto;
+  justify-self: start;
+  height: 40px;
+  margin: 0;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-summary-static {
+  display: block;
+  grid-column: 1 / -1;
+  grid-row: auto;
+  width: auto;
+  padding: 0;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 6px;
+  width: auto;
+  padding: 0;
+  border: 0;
+}
+/* Chips of a tariff without adjustable limits look like the adjustable ones. */
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.has-adjustable-limits) .checkout-tariff-fact:not(:has(> .checkout-addon-value > span[aria-label])) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0;
+}
+.theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.has-adjustable-limits) .checkout-addon-value {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 14px;
+}
+.theme-key-avio-soft .payment-dialog-card:has(.checkout-tariff-card:not(.is-editing)) .dialog-close-button { top: var(--s-sheet-top, 24px); }
+
+/* Payment method: the chosen method sits in the middle, the chevron stays at the edge. */
+.theme-key-avio-soft .payment-method-select-trigger {
+  position: relative;
+  justify-content: center;
+  padding-inline: 48px;
+}
+.theme-key-avio-soft .payment-method-select-trigger > span { flex: 0 1 auto; min-width: 0; text-align: center; }
+.theme-key-avio-soft .payment-method-select-trigger > svg:last-of-type {
+  position: absolute;
+  top: 50%;
+  right: var(--sp-4, 16px);
+  translate: 0 -50%;
+}
+
+/* Home: the logo stands in the middle, clear of Telegram's own buttons in full screen,
+   and a little larger. Admin is a small bright round button on the right. */
+@media (max-width: 1023px) {
+  .theme-key-avio-soft {
+    --s-home-logo-top: calc(max(16px, env(safe-area-inset-top, 0px)) + 14px);
+    --s-home-logo-h: 69px;
+  }
+  .theme-key-avio-soft .home-layout { padding-top: 14px; }
+  .theme-key-avio-soft .home-brand { justify-items: center; }
+  .theme-key-avio-soft.app-shell .home-brand .brand-mark.brand-mark-xl { width: 112px; height: var(--s-home-logo-h); }
+  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry {
+    top: max(calc(var(--content-safe-area-top, 0px) + 8px), calc(var(--s-home-logo-top) + (var(--s-home-logo-h) - 40px) / 2));
+    right: 16px;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #7b5cff;
+    box-shadow: 0 3px 0 #5536d6;
+    color: #fff;
+  }
+  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry svg { width: 20px; height: 20px; stroke-width: 2.4; }
+  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry .bottom-nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .theme-key-avio-soft.app-shell:has(.home-layout) .bottom-nav .rail-admin-entry:active { box-shadow: 0 0 0 #5536d6; }
+  /* Every other screen: the brand row is centred too. */
+  .theme-key-avio-soft .app-header .brand-row { justify-content: center; }
+}
+@media (max-height: 700px) and (max-width: 1023px) {
+  .theme-key-avio-soft {
+    --s-home-logo-top: calc(max(10px, env(safe-area-inset-top, 0px)) + 4px);
+    --s-home-logo-h: 43px;
+  }
+  .theme-key-avio-soft .home-layout { padding-top: 4px; }
+  .theme-key-avio-soft.app-shell .home-brand .brand-mark.brand-mark-xl { width: 70px; }
+  .theme-key-avio-soft.app-shell .payment-dialog-body > .checkout-tariff-card:not(.is-editing) .checkout-tariff-description-line small { -webkit-line-clamp: 1; }
+}
+
+/* ══ Install: the app is found for you, the path is numbered and pointed ════ */
+
+/* The platform is detected by the bot, so its picker moves to the very end of the page
+   and loses its number: step 1 is choosing the app. */
+.theme-key-avio-soft.app-shell .install-layout { grid-template-columns: var(--s-tap) minmax(0, 1fr); column-gap: var(--sp-3, 12px); }
+.theme-key-avio-soft.app-shell .install-layout > .install-topbar { display: contents; }
+.theme-key-avio-soft.app-shell .install-layout > .install-topbar > .install-back-btn { grid-column: 1; grid-row: 1; align-self: center; }
+.theme-key-avio-soft.app-shell .install-layout > .install-topbar > div:not(.install-platform-topbar) { grid-column: 2; grid-row: 1; align-self: center; }
+.theme-key-avio-soft.app-shell .install-layout > .install-topbar:not(:has(> .install-back-btn)) > div:not(.install-platform-topbar) { grid-column: 1 / -1; }
+.theme-key-avio-soft.app-shell .install-layout > :not(.install-topbar),
+.theme-key-avio-soft.app-shell .install-layout > .install-topbar > .install-platform-topbar { grid-column: 1 / -1; }
+.theme-key-avio-soft.app-shell .install-layout > .install-topbar > .install-platform-topbar {
+  order: 9;
+  display: grid;
+  gap: var(--sp-2, 8px);
+  padding: var(--sp-3, 12px) var(--sp-4, 16px) var(--sp-4, 16px);
+  border: 2px dashed var(--s-edge);
+  border-radius: 20px;
+}
+.theme-key-avio-soft.app-shell .install-platform-topbar { counter-increment: none; }
+.theme-key-avio-soft.app-shell .install-platform-topbar::before {
+  content: "Другое устройство? Выберите систему";
+  display: block;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--muted);
+  font: 800 14px/1.3 var(--font-sans);
+  text-align: left;
+}
+.theme-key-avio-soft.app-shell .install-platform-topbar:has([aria-label="Platform"])::before { content: "Another device? Choose the system"; }
+
+/* Step titles say what to do. Only for the standard three-step guide in Russian:
+   a guide with extra steps keeps the titles written in the panel. */
+.theme-key-avio-soft.app-shell .install-layout:has(.install-back-btn[aria-label="Назад"]) .install-section-title > span { font-size: 0; }
+.theme-key-avio-soft.app-shell .install-layout:has(.install-back-btn[aria-label="Назад"]) .install-section-title > span::after { content: "Выберите приложение"; font-size: 16px; }
+.theme-key-avio-soft.app-shell .install-layout:has(.install-back-btn[aria-label="Назад"]) .install-steps:has(> :nth-child(3):last-child) > * .install-step-body > h2 { font-size: 0; }
+.theme-key-avio-soft.app-shell .install-layout:has(.install-back-btn[aria-label="Назад"]) .install-steps:has(> :nth-child(3):last-child) > * .install-step-body > h2::after { font-size: 17px; }
+.theme-key-avio-soft.app-shell .install-layout:has(.install-back-btn[aria-label="Назад"]) .install-steps:has(> :nth-child(3):last-child) > :nth-child(1) .install-step-body > h2::after { content: "Установите приложение"; }
+.theme-key-avio-soft.app-shell .install-layout:has(.install-back-btn[aria-label="Назад"]) .install-steps:has(> :nth-child(3):last-child) > :nth-child(2) .install-step-body > h2::after { content: "Добавьте подписку в приложение"; }
+.theme-key-avio-soft.app-shell .install-layout:has(.install-back-btn[aria-label="Назад"]) .install-steps:has(> :nth-child(3):last-child) > :nth-child(3) .install-step-body > h2::after { content: "Включите VPN"; }
+
+/* Arrows: a curved one points from the step number at the button to press,
+   and a chevron between the cards shows where the path goes next. */
+.theme-key-avio-soft.app-shell .install-step .install-actions { position: relative; }
+.theme-key-avio-soft.app-shell .install-step .install-actions::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: calc(100% + 6px);
+  width: 36px;
+  height: 36px;
+  background: var(--s-go);
+  -webkit-mask: url("images/arrow-curve.svg") center / contain no-repeat;
+  mask: url("images/arrow-curve.svg") center / contain no-repeat;
+  animation: s-nudge 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+.theme-key-avio-soft.app-shell .install-steps { gap: 20px; }
+.theme-key-avio-soft.app-shell .install-step-motion + .install-step-motion::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 26px;
+  width: 17px;
+  height: 11px;
+  background: var(--s-go);
+  -webkit-mask: url("images/arrow-down.svg") center / contain no-repeat;
+  mask: url("images/arrow-down.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+.theme-key-avio-soft.app-shell .install-steps::before { opacity: .6; }
+@keyframes s-nudge { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(3px, 2px); } }
+@media (prefers-reduced-motion: reduce) {
+  .theme-key-avio-soft.app-shell .install-step .install-actions::before { animation: none; }
+}

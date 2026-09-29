@@ -1,6 +1,7 @@
 /* Avio Soft — minishop theme, built from scratch on the Core markup.
-   Every asset is local to this package: Nunito (OFL), the padlock mascot (authored SVG),
-   the recoloured Avio logo, and two backgrounds generated with Codex image generation. */
+   Every asset is local to this package: Nunito (OFL), the padlock mascot (authored SVG)
+   and two backgrounds generated with Codex image generation. The logo is the bot's own,
+   from its brand settings. */
 
 /* ── Purchase-flow structure ────────────────────────────────────────────────
    Only layout and order live here; the Soft layer below paints the surfaces. */
@@ -625,10 +626,6 @@
 .theme-key-avio-soft .option-row-meta { align-self: stretch; align-content: space-between; gap: var(--sp-1); }
 .theme-key-avio-soft .tariff-row:not(.active) .option-row-meta svg { visibility: hidden; }
 
-/* Logo in the scheme's colours: the same shapes, recoloured sky and green. */
-.theme-key-avio-soft .brand-mark img { content: url("images/logo-sky-light.webp"); }
-.theme-key-avio-soft.theme-variant-dark .brand-mark img { content: url("images/logo-sky-dark.webp"); }
-
 /* The lock is the hero: it fills the free space between the logo and the status
    at any screen height. Its motion (breathing, blinking, floating z's) lives inside the SVGs. */
 .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand {
@@ -989,7 +986,7 @@
 /* Desktop: settings stay one grouped column; the dialog is a window, not a sheet. */
 @media (min-width: 1024px) {
   .theme-key-avio-soft.app-shell .settings-list { grid-template-columns: minmax(0, 1fr); max-width: 720px; }
-  .theme-key-avio-soft.app-shell :is(.settings-links-block, .settings-profile) { max-width: 720px; }
+  .theme-key-avio-soft.app-shell :is(.settings-links-block, .settings-profile, .settings-admin-block, .card:has(> .promo-apply-row)) { max-width: 720px; }
   .theme-key-avio-soft .payment-dialog-card { border-radius: 28px; padding-top: var(--sp-4, 16px); }
   .theme-key-avio-soft .payment-dialog-card::before { display: none; }
   .theme-key-avio-soft .payment-dialog-card:has(.subscription-purchase-description-header) .dialog-close-button { top: calc(var(--sp-4, 16px) + 6px); }
@@ -2226,4 +2223,19 @@
   font-size: 15px;
   font-weight: 800;
   line-height: 1.35;
+}
+
+/* ══ 2.4.2: prices that fit their tiles ═════════════════════════════════════ */
+
+/* Period tiles show whole rubles: the kopecks (and their comma) are hidden, the exact
+   amount stays on the pay button. The price size follows the tile's own width, so a
+   five-digit price still fits four tiles in a row on a narrow phone. */
+.theme-key-avio-soft .period-card { container-type: inline-size; }
+.theme-key-avio-soft .period-card .animated-price::part(fraction) { display: none; }
+.theme-key-avio-soft .period-card > span { font-size: clamp(11px, 100cqi / 4.2, 18px); }
+
+/* The logo comes from the bot's brand settings. On the night sky a soft light halo keeps a
+   dark logo readable; a light logo barely changes. */
+.theme-key-avio-soft.theme-variant-dark .brand-mark img {
+  filter: drop-shadow(0 0 1px rgb(255 255 255 / .55)) drop-shadow(0 0 14px rgb(190 220 255 / .35));
 }

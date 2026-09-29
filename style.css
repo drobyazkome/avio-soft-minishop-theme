@@ -2287,23 +2287,35 @@
   gap: var(--sp-4, 16px);
 }
 
-/* ══ 2.4.4: an avatar that never breaks ═════════════════════════════════════ */
+/* ══ 2.4.5: an avatar that never breaks, a promo button the size of its field ══ */
 
-/* When a Telegram photo is private, Telegram hands out a placeholder with initials
-   (t.me/i/userpic/….svg). It holds no photo, and where t.me is blocked by the network or a
-   content blocker it shows up as a broken image. The theme draws its own avatar instead;
-   real photos (.jpg) still load from Telegram. */
-.theme-key-avio-soft .settings-avatar:has(> img[src*="/i/userpic/"][src$=".svg"]) {
+/* Settings avatar. In the browser Core asks the bot for /api/account/avatar; with no Telegram
+   photo cached (a private photo) the bot answers 404 and the browser draws a broken image.
+   In Telegram, a private photo comes as an initials placeholder from t.me/i/userpic/….svg,
+   which a blocked t.me breaks the same way. In both cases the theme draws its own avatar;
+   a cached photo (/api/account/avatar?v=…) and real Telegram photos (.jpg) load as before. */
+.theme-key-avio-soft .settings-avatar:has(> img:is([src$="/api/account/avatar"], [src*="/i/userpic/"][src$=".svg"])) {
   border: 0;
   background: linear-gradient(180deg, #7fd0ff, var(--s-pick));
   box-shadow: inset 0 -3px 0 rgb(0 0 0 / .08);
 }
-.theme-key-avio-soft .settings-avatar > img[src*="/i/userpic/"][src$=".svg"] { display: none; }
-.theme-key-avio-soft .settings-avatar:has(> img[src*="/i/userpic/"][src$=".svg"])::before {
+.theme-key-avio-soft .settings-avatar > img:is([src$="/api/account/avatar"], [src*="/i/userpic/"][src$=".svg"]) { display: none; }
+.theme-key-avio-soft .settings-avatar:has(> img:is([src$="/api/account/avatar"], [src*="/i/userpic/"][src$=".svg"]))::before {
   content: "";
   width: 28px;
   height: 28px;
   background: #fff;
   -webkit-mask: url("images/user.svg") center / contain no-repeat;
   mask: url("images/user.svg") center / contain no-repeat;
+}
+
+/* Promo code (Settings, Bonuses): the button and the field are one height; the button's floor
+   ends where the field ends instead of hanging below it. */
+.theme-key-avio-soft.app-shell .promo-apply-row .input { height: 52px; min-height: 52px; }
+.theme-key-avio-soft.app-shell .promo-apply-row > .btn {
+  align-self: start;
+  height: 48px;
+  min-height: 48px;
+  padding-inline: var(--sp-4, 16px);
+  font-size: 16px;
 }

@@ -986,7 +986,9 @@
 /* Desktop: settings stay one grouped column; the dialog is a window, not a sheet. */
 @media (min-width: 1024px) {
   .theme-key-avio-soft.app-shell .settings-list { grid-template-columns: minmax(0, 1fr); max-width: 720px; }
-  .theme-key-avio-soft.app-shell :is(.settings-links-block, .settings-profile, .settings-admin-block, .card:has(> .promo-apply-row)) { max-width: 720px; }
+  .theme-key-avio-soft.app-shell :is(.settings-links-block, .settings-profile, .settings-admin-block) { max-width: 720px; }
+  /* The promo card shares the settings column only there; on Bonuses it keeps the page width. */
+  .theme-key-avio-soft.app-shell .content:has(> .settings-list) > .card:has(> .promo-apply-row) { max-width: 720px; }
   .theme-key-avio-soft .payment-dialog-card { border-radius: 28px; padding-top: var(--sp-4, 16px); }
   .theme-key-avio-soft .payment-dialog-card::before { display: none; }
   .theme-key-avio-soft .payment-dialog-card:has(.subscription-purchase-description-header) .dialog-close-button { top: calc(var(--sp-4, 16px) + 6px); }
@@ -2283,4 +2285,25 @@
   margin-top: var(--sp-3, 12px);
   align-content: start;
   gap: var(--sp-4, 16px);
+}
+
+/* ══ 2.4.4: an avatar that never breaks ═════════════════════════════════════ */
+
+/* When a Telegram photo is private, Telegram hands out a placeholder with initials
+   (t.me/i/userpic/….svg). It holds no photo, and where t.me is blocked by the network or a
+   content blocker it shows up as a broken image. The theme draws its own avatar instead;
+   real photos (.jpg) still load from Telegram. */
+.theme-key-avio-soft .settings-avatar:has(> img[src*="/i/userpic/"][src$=".svg"]) {
+  border: 0;
+  background: linear-gradient(180deg, #7fd0ff, var(--s-pick));
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / .08);
+}
+.theme-key-avio-soft .settings-avatar > img[src*="/i/userpic/"][src$=".svg"] { display: none; }
+.theme-key-avio-soft .settings-avatar:has(> img[src*="/i/userpic/"][src$=".svg"])::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  -webkit-mask: url("images/user.svg") center / contain no-repeat;
+  mask: url("images/user.svg") center / contain no-repeat;
 }

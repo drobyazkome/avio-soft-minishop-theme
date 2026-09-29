@@ -2239,3 +2239,48 @@
 .theme-key-avio-soft.theme-variant-dark .brand-mark img {
   filter: drop-shadow(0 0 1px rgb(255 255 255 / .55)) drop-shadow(0 0 14px rgb(190 220 255 / .35));
 }
+
+/* ══ 2.4.3: the email code screen ═══════════════════════════════════════════ */
+
+/* Core lays a transparent input over six digit cells. The field style above must not paint
+   it, or the white field hides the cells and the typed digits. */
+.theme-key-avio-soft.app-shell .otp-input-wrap .input,
+.theme-key-avio-soft.app-shell .otp-input-wrap .input:focus-visible {
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: transparent;
+  caret-color: transparent;
+}
+/* The cells in the house style: white with a floor, the filled ones sky, the next one ringed
+   while the field has focus. */
+.theme-key-avio-soft .otp-slots { gap: var(--sp-2, 8px); }
+.theme-key-avio-soft .otp-slots span {
+  max-height: 64px;
+  border: 2px solid var(--s-edge);
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: 0 3px 0 var(--s-edge);
+  color: var(--text);
+  font-size: 26px;
+  font-weight: 900;
+}
+.theme-key-avio-soft .otp-slots span.filled {
+  border-color: #9fd6ff;
+  background: var(--s-pick-soft);
+  box-shadow: 0 3px 0 #9fd6ff;
+  color: var(--s-link);
+}
+.theme-key-avio-soft .otp-input-wrap:focus-within .otp-slots span:not(.filled):is(:first-child, .filled + span) {
+  border-color: #84c8ff;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #84c8ff 35%, transparent), 0 3px 0 #84c8ff;
+}
+/* The form sits right under its title instead of in the middle of the screen. */
+.theme-key-avio-soft .otp-wrap {
+  min-height: 0;
+  margin-top: var(--sp-3, 12px);
+  align-content: start;
+  gap: var(--sp-4, 16px);
+}

@@ -1274,7 +1274,7 @@
   .theme-key-avio-soft.app-shell .bottom-nav .rail-admin-entry { margin-left: 8px; border-left: 2px solid var(--s-edge) !important; border-radius: 0 16px 16px 0 !important; }
   .theme-key-avio-soft.app-shell .bottom-nav :is(.nav-attention-dot, .nav-badge-floating) { top: 6px; right: 6px; transform: none; }
   /* The logo lives in the bar, so the home screen keeps only the lock. */
-  .theme-key-avio-soft .home-layout > .home-brand > .brand-mark { display: none; }
+  .theme-key-avio-soft .home-layout > .home-brand > :is(.brand-mark, .home-logo-slot) { display: none; }
   .theme-key-avio-soft .home-layout:has(.status-card-inactive) > .home-brand { display: none; }
   .theme-key-avio-soft .home-layout { min-height: calc(100dvh - 160px); grid-template-rows: minmax(0, 1fr); align-content: center; }
   .theme-key-avio-soft .home-layout:has(.status-card-inactive) { grid-template-rows: minmax(0, 1fr); }
@@ -2318,4 +2318,30 @@
   min-height: 48px;
   padding-inline: var(--sp-4, 16px);
   font-size: 16px;
+}
+
+/* ══ 2.4.6: the home screen on Core's new header (logo slot, flex column) ══════ */
+
+/* Core now wraps the home logo in .home-logo-slot with its own height (6rem on phones,
+   180–260 px on computers) and lays .home-brand out as a centred flex column. On computers the
+   slot is hidden with the logo (the bar carries it); on phones it is as tall as the theme's logo. */
+@media (max-width: 1023px) {
+  .theme-key-avio-soft .home-layout > .home-brand > .home-logo-slot { height: var(--s-home-logo-h, 69px); flex: none; }
+}
+/* The lock keeps the free space under the logo: full width (a centred flex item would shrink
+   to nothing), up to 176 px tall, centred in whatever room is left, and it gives way first. */
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand { justify-content: flex-start; }
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after {
+  flex: 0 1 176px;
+  align-self: stretch;
+  width: 100%;
+  height: auto;
+  max-height: 176px;
+  margin-block: auto;
+}
+@media (min-width: 1024px) {
+  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after { flex-basis: 160px; min-height: 160px; }
+  /* Core fixes the home height to the window; under the floating bar that pushed the main
+     button off the screen. The theme's own min-height keeps the page in view. */
+  .theme-key-avio-soft .home-layout { height: auto; }
 }

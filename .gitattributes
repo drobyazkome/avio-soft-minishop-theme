@@ -1,0 +1,8 @@
+# Kept out of git archive, GitHub zipballs (what Core downloads on install
+# and update) and the release zip. The README shows screenshots from the
+# repository tree, so the installed package does not need them.
+# Core rejects unknown dotfiles in a theme folder (unsupported_theme_file),
+# so .gitattributes itself must be excluded as well.
+/.gitattributes export-ignore
+/.github export-ignore
+/screenshots export-ignore

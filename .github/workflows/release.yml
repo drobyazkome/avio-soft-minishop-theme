@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate.yml
+
+  release:
+    name: Publish release
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ github.ref_name }}
+      PACKAGE: avio-soft-theme.zip
+    steps:
+      - name: Check out theme
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Check tag matches theme-package.json version
+        run: |
+          version=$(jq -r .version theme-package.json)
+          if [ "v$version" != "$TAG" ]; then
+            echo "::error file=theme-package.json::Tag $TAG does not match version $version"
+            exit 1
+          fi
+
+      # Same command as the validate job; git archive is deterministic per commit.
+      - name: Build package
+        run: git archive --format=zip --prefix=avio-soft/ -o "$PACKAGE" HEAD
+
+      # Re-running the job replaces the asset instead of failing on an existing release.
+      - name: Publish GitHub release
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$PACKAGE" --clobber
+          else
+            gh release create "$TAG" "$PACKAGE" --verify-tag --generate-notes \
+              --title "Avio Soft ${TAG#v}"
+          fi

@@ -1,0 +1,71 @@
+name: Validate
+
+on:
+  push:
+    # Branches only: tag pushes are validated by release.yml, which calls this workflow.
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  # Core release whose package validator is used. Dependency pins are read from
+  # the same tag, so bumping this line is enough.
+  CORE_REF: v3.8.0
+  CORE_REPO: https://gitlab.com/3252a8/remnawave-minishop.git
+  PACKAGE: avio-soft-theme.zip
+
+jobs:
+  validate:
+    name: Validate package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out theme
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      # The same archive a release ships and, with export-ignore applied, the same
+      # content GitHub serves to Core as the repository zipball.
+      - name: Export package with git archive
+        run: |
+          git archive --format=zip --prefix=avio-soft/ -o "$RUNNER_TEMP/$PACKAGE" HEAD
+          unzip -Z1 "$RUNNER_TEMP/$PACKAGE" | grep -v '/$' | sed 's|^avio-soft/||'
+
+      # Partial sparse clone: only backend/config and top-level files, about 2 MB.
+      - name: Fetch Core ${{ env.CORE_REF }} validator
+        run: |
+          git -c advice.detachedHead=false clone --quiet --depth 1 --branch "$CORE_REF" --no-tags \
+            --filter=blob:none --sparse "$CORE_REPO" "$RUNNER_TEMP/core"
+          git -C "$RUNNER_TEMP/core" sparse-checkout set backend/config
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      # config.theme_packages imports only pydantic, Pillow and tinycss2 on the
+      # validate path; the other five are their dependencies. Versions are taken
+      # from Core's lock file so they match the running Core exactly.
+      - name: Install validator dependencies
+        run: |
+          pins="$RUNNER_TEMP/validator-requirements.txt"
+          grep -iE '^(annotated-types|pillow|pydantic|pydantic-core|tinycss2|typing-extensions|typing-inspection|webencodings)==' \
+            "$RUNNER_TEMP/core/backend/requirements.txt" > "$pins"
+          cat "$pins"
+          if [ "$(wc -l < "$pins")" -ne 8 ]; then
+            echo "::error::Expected 8 pins in Core $CORE_REF backend/requirements.txt"
+            exit 1
+          fi
+          python -m pip install --quiet --disable-pip-version-check \
+            --no-deps --only-binary=:all: -r "$pins"
+          python -m pip check
+
+      - name: Validate package
+        run: |
+          cd "$RUNNER_TEMP/core/backend"
+          python -m config.theme_packages validate "$RUNNER_TEMP/$PACKAGE"

@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "version": "2.4.6",
+  "schema_version": 2,
+  "version": "2.5.0",
   "description": {
     "ru": "Avio Soft: тема с нуля — небо с облаками и ночное небо, Nunito, объёмные кнопки, пастельные тарифы, замок-персонаж, который спит без подписки, радуется с ней и тревожится, когда она кончается. Компактная оплата без прокрутки, все окна шторками на телефоне, на компьютере — панель сверху вместо колонки слева.",
     "en": "Avio Soft: a theme built from scratch — a sky with clouds and a night sky, Nunito, chunky buttons, pastel tariffs and a padlock mascot that sleeps without a subscription, smiles with one and worries when it runs out. A compact checkout that fits without scrolling, every window as a sheet on phones, and a top bar instead of the left rail on desktop."
@@ -9,9 +9,24 @@
     "name": "Avio"
   },
   "license": "LicenseRef-Avio-Private",
-  "homepage": "https://github.com/drobyazkome/avio-minishop-theme",
+  "homepage": "https://github.com/drobyazkome/avio-soft-minishop-theme",
   "preview": "preview.webp",
   "compatibility": {
     "theme_api": 1
+  },
+  "effects": {
+    "api_version": 1,
+    "runtime": "trusted-dom",
+    "entry": "effects/main.js",
+    "styles": [],
+    "assets": [],
+    "targets": [
+      "shell.background",
+      "home.header.surface"
+    ],
+    "description": {
+      "ru": "Время суток и сезоны: замочек бодрый днём и сонный ночью, следит глазами за пальцем, надевает шапку зимой и очки летом; снег, листья, лепестки, звёзды и облака на небе.",
+      "en": "Time of day and seasons: the lock is lively by day and sleepy at night, follows your finger with its eyes, puts on a hat in winter and sunglasses in summer; snow, leaves, petals, stars and clouds in the sky."
+    }
   }
 }

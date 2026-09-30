@@ -108,9 +108,13 @@
 .theme-key-avio-soft {
   --s-go: #18864f;
   --s-go-floor: #0f5f37;
-  --s-pick: #1c9be8;
-  --s-pick-soft: #e3f3ff;
-  --s-pick-floor: #10679f;
+  /* The sky blue follows the theme's accent token, so an owner who sets another accent in the
+     admin panel recolours choices, links and rings in one go. Defaults match #1c9be8. */
+  --s-pick: var(--accent, #1c9be8);
+  --s-pick-soft: color-mix(in srgb, var(--s-pick) 12%, #fff);
+  --s-pick-floor: color-mix(in srgb, var(--s-pick) 66%, #000);
+  --s-pick-ring: color-mix(in srgb, var(--s-pick) 55%, #fff);
+  --s-pick-edge: color-mix(in srgb, var(--s-pick) 43%, #fff);
   --s-edge: #dfe8f2;
   --s-floor: #cfdbe8;
   --s-mint: #dcf6e8;
@@ -120,7 +124,7 @@
   --s-butter: #fff3c7;
   --s-ink: #34324a;
   --s-rose: #ffe6ee;
-  --s-link: #10679f;
+  --s-link: var(--s-pick-floor);
   --s-amber: #fff0c2;
   --s-amber-floor: #e8b33a;
   --s-hero-worry: url("images/lock-worry.svg");
@@ -138,7 +142,7 @@
 .theme-key-avio-soft.theme-variant-dark {
   --s-go: #18864f;
   --s-go-floor: #0b4a2a;
-  --s-pick-soft: #1e3450;
+  --s-pick-soft: color-mix(in srgb, var(--s-pick) 22%, #161a2b);
   --s-edge: #2e3552;
   --s-floor: #0c0f19;
   --s-mint: #213b33;
@@ -148,7 +152,7 @@
   --s-butter: #3d3726;
   --s-ink: #f3f0ff;
   --s-rose: #40283a;
-  --s-link: #6cc2ff;
+  --s-link: color-mix(in srgb, var(--s-pick) 80%, #fff);
   --s-amber: #3f3520;
   --s-amber-floor: #9a7424;
   --s-sky-art: url("images/bg-dark-night.webp");
@@ -294,7 +298,7 @@
 }
 .theme-key-avio-soft .progress span {
   border-radius: 999px;
-  background: linear-gradient(180deg, #7fd0ff, var(--s-pick));
+  background: linear-gradient(180deg, var(--s-pick-ring), var(--s-pick));
   box-shadow: inset 0 -3px 0 rgb(0 0 0 / .08);
 }
 .theme-key-avio-soft .premium-progress span { background: linear-gradient(180deg, #c3adff, #8f6cf0); }
@@ -315,7 +319,7 @@
   .theme-key-avio-soft .bottom-nav .bottom-nav-label { font-size: 11px; font-weight: 700; letter-spacing: -0.02em; text-overflow: clip; }
   .theme-key-avio-soft .bottom-nav { padding: 4px; }
   .theme-key-avio-soft .bottom-nav button { padding-inline: 0; }
-  .theme-key-avio-soft .bottom-nav button.active { border-color: #9fd6ff; background: var(--s-pick-soft); color: var(--s-link); }
+  .theme-key-avio-soft .bottom-nav button.active { border-color: var(--s-pick-edge); background: var(--s-pick-soft); color: var(--s-link); }
 }
 
 
@@ -339,9 +343,9 @@
 .theme-key-avio-soft .tariff-row:nth-child(5n + 5) { --tone: var(--s-rose); }
 .theme-key-avio-soft .tariff-row:active { transform: translateY(4px); box-shadow: none; }
 .theme-key-avio-soft .tariff-row.active {
-  border-color: #84c8ff;
+  border-color: var(--s-pick-ring);
   background: var(--s-pick-soft);
-  box-shadow: 0 4px 0 #84c8ff;
+  box-shadow: 0 4px 0 var(--s-pick-ring);
 }
 .theme-key-avio-soft .option-row-main strong { font-size: 19px; font-weight: 900; }
 .theme-key-avio-soft .option-row-main small { color: var(--muted); font-size: 13px; font-weight: 700; }
@@ -529,9 +533,9 @@
 .theme-key-avio-soft .period-card .period-unit-price { flex-wrap: wrap; column-gap: .25em; white-space: normal; }
 .theme-key-avio-soft .period-card > svg { display: none; }
 .theme-key-avio-soft .period-card.active {
-  border-color: #84c8ff;
+  border-color: var(--s-pick-ring);
   background: var(--s-pick-soft);
-  box-shadow: 0 3px 0 #84c8ff;
+  box-shadow: 0 3px 0 var(--s-pick-ring);
 }
 .theme-key-avio-soft .period-card.active strong,
 .theme-key-avio-soft .period-card.active > span { color: var(--s-pick-floor); }
@@ -612,7 +616,7 @@
 }
 .theme-key-avio-soft .balance-discount .ui-checkbox[aria-checked="true"] { border-color: var(--s-go-floor); background: var(--s-go); }
 .theme-key-avio-soft .balance-discount .ui-checkbox[aria-checked="true"]::after { transform: translateX(20px); }
-.theme-key-avio-soft .balance-discount .ui-checkbox:focus-visible { outline: 3px solid #84c8ff; outline-offset: 2px; }
+.theme-key-avio-soft .balance-discount .ui-checkbox:focus-visible { outline: 3px solid var(--s-pick-ring); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .theme-key-avio-soft .balance-discount .ui-checkbox,
   .theme-key-avio-soft .balance-discount .ui-checkbox::after { transition: none; }
@@ -640,11 +644,11 @@
   height: 100%;
   min-height: 96px;
   max-height: 176px;
-  background: var(--s-hero-happy) center / contain no-repeat;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 /* Only the free space goes to the lock: on short screens it shrinks instead of
    pushing the main button under the tab bar. */
-.theme-key-avio-soft .home-layout:has(.status-card.status-card-warning:not(.status-card-inactive)) > .home-brand::after { background-image: var(--s-hero-worry); }
 
 /* Touch: every control answers on press, and the small switch gets a 44px hit area. */
 .theme-key-avio-soft :is(.period-card, .back-inline) { transition: transform .08s ease-out, box-shadow .08s ease-out; }
@@ -656,10 +660,10 @@
 
 /* Keyboard and mouse (Telegram Desktop): a visible focus ring everywhere, hover only where a mouse exists. */
 .theme-key-avio-soft :is(.btn, .tariff-row, .period-card, .back-inline, .payment-method-select-trigger, .bottom-nav button):focus-visible {
-  outline: 3px solid #84c8ff;
+  outline: 3px solid var(--s-pick-ring);
   outline-offset: 2px;
 }
-.theme-key-avio-soft .checkout-promo-row .input.checkout-promo-input:focus-visible { border-color: #84c8ff; outline: none; }
+.theme-key-avio-soft .checkout-promo-row .input.checkout-promo-input:focus-visible { border-color: var(--s-pick-ring); outline: none; }
 @media (hover: hover) and (pointer: fine) {
   .theme-key-avio-soft :is(.btn-primary, .payment-submit-button):not(:disabled):hover { filter: brightness(1.06); }
   .theme-key-avio-soft :is(.tariff-row, .period-card, .back-inline, .payment-method-select-trigger, .btn:not(.btn-primary, .payment-submit-button)):hover { border-color: var(--border-strong); }
@@ -840,9 +844,9 @@
 .theme-key-avio-soft.app-shell .install-back-btn { border-radius: 14px; }
 .theme-key-avio-soft.app-shell .install-app-button { min-height: 64px; font-size: 16px; font-weight: 800; }
 .theme-key-avio-soft.app-shell .install-app-button.active {
-  border-color: #84c8ff;
+  border-color: var(--s-pick-ring);
   background: var(--s-pick-soft);
-  box-shadow: 0 3px 0 #84c8ff;
+  box-shadow: 0 3px 0 var(--s-pick-ring);
 }
 /* Brand marks ship near-white fills; give them ink on the light theme. */
 .theme-key-avio-soft.theme-variant-light .install-svg :is([fill="#FAFAFA" i], [fill="#FFFFFF" i], [fill="#FFF" i], [fill="white" i]) { fill: var(--s-ink); }
@@ -896,7 +900,7 @@
 .theme-key-avio-soft.app-shell .tariff-action-card:nth-child(5n + 3) { --tone: var(--s-peach); }
 .theme-key-avio-soft.app-shell .tariff-action-card:nth-child(5n + 4) { --tone: var(--s-butter); }
 .theme-key-avio-soft.app-shell .tariff-action-card:nth-child(5n + 5) { --tone: var(--s-rose); }
-.theme-key-avio-soft.app-shell .tariff-action-card.active { border-color: #84c8ff; background: var(--s-pick-soft); box-shadow: 0 4px 0 #84c8ff; }
+.theme-key-avio-soft.app-shell .tariff-action-card.active { border-color: var(--s-pick-ring); background: var(--s-pick-soft); box-shadow: 0 4px 0 var(--s-pick-ring); }
 .theme-key-avio-soft.app-shell .tariff-action-card strong { font-size: 18px; font-weight: 900; }
 .theme-key-avio-soft.app-shell .tariff-action-card small { color: var(--muted); font-size: 13px; font-weight: 700; }
 .theme-key-avio-soft.app-shell .tariff-action-card em {
@@ -915,7 +919,7 @@
   background: var(--panel);
   box-shadow: 0 4px 0 var(--s-edge);
 }
-.theme-key-avio-soft.app-shell .change-action-row.active { border-color: #84c8ff; background: var(--s-pick-soft); box-shadow: 0 4px 0 #84c8ff; }
+.theme-key-avio-soft.app-shell .change-action-row.active { border-color: var(--s-pick-ring); background: var(--s-pick-soft); box-shadow: 0 4px 0 var(--s-pick-ring); }
 .theme-key-avio-soft.app-shell .change-action-row strong { font-size: 16px; font-weight: 800; }
 .theme-key-avio-soft.app-shell .change-action-row small { color: var(--muted); font-size: 13px; font-weight: 600; }
 
@@ -979,7 +983,7 @@
 .theme-key-avio-soft.app-shell :is(input.input, textarea) { font-size: 16px; }
 .theme-key-avio-soft.app-shell .support-status-tabs-trigger { min-height: 44px; }
 .theme-key-avio-soft.app-shell :is(.settings-row, .language-select-trigger, .ticket-card, .support-new-ticket-button, .support-status-tabs-trigger, .install-app-button, .install-platform-trigger, .tariff-action-card, .change-action-row, .referral-tariff-summary, .auth-provider-compact):focus-visible {
-  outline: 3px solid #84c8ff;
+  outline: 3px solid var(--s-pick-ring);
   outline-offset: 2px;
 }
 
@@ -1068,9 +1072,9 @@
 .theme-key-avio-soft.app-shell :is(.input, .support-select-trigger):focus-visible,
 .theme-key-avio-soft.app-shell .rt-surface:focus-within,
 .theme-key-avio-soft.app-shell .support-select-trigger[data-state="open"] {
-  border-color: #84c8ff;
+  border-color: var(--s-pick-ring);
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, #84c8ff 35%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--s-pick-ring) 35%, transparent);
 }
 .theme-key-avio-soft .input::placeholder { color: var(--muted); font-weight: 600; opacity: 1; }
 .theme-key-avio-soft .support-field > label,
@@ -1085,7 +1089,7 @@
   color: var(--text);
   font-weight: 900;
 }
-.theme-key-avio-soft.app-shell .rt-tool[aria-pressed="true"] { border-color: #84c8ff; background: var(--s-pick-soft); color: var(--s-link); }
+.theme-key-avio-soft.app-shell .rt-tool[aria-pressed="true"] { border-color: var(--s-pick-ring); background: var(--s-pick-soft); color: var(--s-link); }
 .theme-key-avio-soft.app-shell .message-image-dropzone {
   border: 2px dashed var(--border-strong);
   border-radius: 16px;
@@ -1161,7 +1165,7 @@
 .theme-key-avio-soft.app-shell .notification-preferences__switch[data-state="checked"] { border-color: var(--s-go-floor); background: var(--s-go); }
 .theme-key-avio-soft.app-shell .notification-preferences__switch[data-state="checked"] .notification-preferences__thumb { transform: translateX(20px); }
 .theme-key-avio-soft.app-shell .notification-preferences__switch::before { content: ""; position: absolute; inset: -8px -4px; }
-.theme-key-avio-soft.app-shell .notification-preferences__switch:focus-visible { outline: 3px solid #84c8ff; outline-offset: 2px; }
+.theme-key-avio-soft.app-shell .notification-preferences__switch:focus-visible { outline: 3px solid var(--s-pick-ring); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .theme-key-avio-soft.app-shell :is(.notification-preferences__switch, .notification-preferences__thumb) { transition: none; }
 }
@@ -1209,16 +1213,16 @@
   color: var(--s-link);
 }
 .theme-key-avio-soft .checkout-slider-track { height: 10px; border-radius: 999px; background: var(--panel-2); }
-.theme-key-avio-soft .checkout-slider-range { border-radius: 999px; background: linear-gradient(180deg, #7fd0ff, var(--s-pick)); }
+.theme-key-avio-soft .checkout-slider-range { border-radius: 999px; background: linear-gradient(180deg, var(--s-pick-ring), var(--s-pick)); }
 .theme-key-avio-soft.app-shell .checkout-slider-thumb {
   width: 26px;
   height: 26px;
-  border: 2px solid #84c8ff;
+  border: 2px solid var(--s-pick-ring);
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 3px 0 #84c8ff;
+  box-shadow: 0 3px 0 var(--s-pick-ring);
 }
-.theme-key-avio-soft.app-shell .checkout-slider-thumb:focus-visible { outline: 3px solid #84c8ff; outline-offset: 2px; }
+.theme-key-avio-soft.app-shell .checkout-slider-thumb:focus-visible { outline: 3px solid var(--s-pick-ring); outline-offset: 2px; }
 
 /* ══ Desktop: a floating top bar instead of the left rail ═══════════════════
    Navigation sits where reading starts, content keeps the whole width. */
@@ -1259,7 +1263,7 @@
     color: var(--muted);
   }
   .theme-key-avio-soft.app-shell .bottom-nav .bottom-nav-label { font-size: 15px !important; font-weight: 800; letter-spacing: 0; }
-  .theme-key-avio-soft.app-shell .bottom-nav button.active { border-color: #9fd6ff !important; background: var(--s-pick-soft); color: var(--s-link); }
+  .theme-key-avio-soft.app-shell .bottom-nav button.active { border-color: var(--s-pick-edge) !important; background: var(--s-pick-soft); color: var(--s-link); }
   .theme-key-avio-soft.app-shell .bottom-nav button:hover:not(.active) { background: var(--panel-2); color: var(--text); }
   .theme-key-avio-soft.app-shell .bottom-nav .rail-brand {
     width: auto;
@@ -1288,7 +1292,7 @@
 .theme-key-avio-soft.app-shell .rt-toolbar { flex-wrap: wrap; gap: 6px; }
 .theme-key-avio-soft.app-shell .rt-tool { min-width: 40px; height: 40px; }
 .theme-key-avio-soft.app-shell :is(.rt-tool, .security-back, .partner-back, .support-back-button, .support-select-trigger, .notification-preferences__switch, .partner-tutorial-button, .device-danger-button):focus-visible {
-  outline: 3px solid #84c8ff;
+  outline: 3px solid var(--s-pick-ring);
   outline-offset: 2px;
 }
 @media (min-width: 1024px) {
@@ -1322,20 +1326,14 @@
 @keyframes s-hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-3px); } }
 @keyframes s-fill { from { transform: scaleX(0); } }
 
-.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive):not(.status-card-warning)) > .home-brand::after {
-  animation: s-float 3.6s ease-in-out infinite, s-blink 5.6s linear infinite;
-}
-.theme-key-avio-soft .home-layout:has(.status-card-warning) > .home-brand::after {
-  transform-origin: 50% 92%;
-  animation: s-tremble 3.4s ease-in-out infinite;
-}
+/* The home lock's moods (day, morning, evening, night, worry) live in the 2.5.0 block. */
 .theme-key-avio-soft :is(.status-card-inactive, .devices-inactive-card, .login-brand-auth)::before {
   transform-origin: 50% 92%;
   animation: s-breathe 4.4s ease-in-out infinite, s-snore 3s linear infinite;
 }
 /* Frames load up front, so the first blink never flashes empty. */
 .theme-key-avio-soft.app-shell::after {
-  content: url("images/lock-happy-blink.svg") url("images/lock-sleep-2.svg") url("images/lock-worry.svg");
+  content: url("images/lock-happy-blink.svg") url("images/lock-sleep-2.svg") url("images/lock-worry.svg") url("images/lock-cheer.svg") url("images/lock-doze-2.svg") url("images/lock-doze-peek.svg") url("images/lock-yawn.svg");
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1521,9 +1519,9 @@
 }
 /* Edit reads as an action (sky), close stays neutral: the two squares never look alike. */
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit {
-  border-color: #9fd6ff;
+  border-color: var(--s-pick-edge);
   background: var(--s-pick-soft);
-  box-shadow: 0 3px 0 #9fd6ff;
+  box-shadow: 0 3px 0 var(--s-pick-edge);
 }
 
 /* ══ Long texts from the admin (2.1.1) ══════════════════════════════════════
@@ -1627,7 +1625,7 @@
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close)::after { content: "Настройка тарифа"; }
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close)[title^="Change"]::after { content: "Plan settings"; }
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close) svg { flex: none; width: 16px; height: 16px; }
-.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close):active { transform: translateY(3px); box-shadow: 0 0 0 #9fd6ff; }
+.theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit:not(.checkout-tariff-close):active { transform: translateY(3px); box-shadow: 0 0 0 var(--s-pick-edge); }
 
 /* Promo code: a right-aligned link right under the payment method. */
 .theme-key-avio-soft .payment-dialog-body > .checkout-promo-row { order: 2; }
@@ -1975,10 +1973,10 @@
   height: 40px;
   margin: 0;
   padding: 0 16px;
-  border: 2px solid #9fd6ff;
+  border: 2px solid var(--s-pick-edge);
   border-radius: 14px;
   background: var(--s-pick-soft);
-  box-shadow: 0 3px 0 #9fd6ff;
+  box-shadow: 0 3px 0 var(--s-pick-edge);
   color: var(--s-link);
   font: 800 15px/1 var(--font-sans);
   white-space: nowrap;
@@ -2270,14 +2268,14 @@
   font-weight: 900;
 }
 .theme-key-avio-soft .otp-slots span.filled {
-  border-color: #9fd6ff;
+  border-color: var(--s-pick-edge);
   background: var(--s-pick-soft);
-  box-shadow: 0 3px 0 #9fd6ff;
+  box-shadow: 0 3px 0 var(--s-pick-edge);
   color: var(--s-link);
 }
 .theme-key-avio-soft .otp-input-wrap:focus-within .otp-slots span:not(.filled):is(:first-child, .filled + span) {
-  border-color: #84c8ff;
-  box-shadow: 0 0 0 3px color-mix(in srgb, #84c8ff 35%, transparent), 0 3px 0 #84c8ff;
+  border-color: var(--s-pick-ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--s-pick-ring) 35%, transparent), 0 3px 0 var(--s-pick-ring);
 }
 /* The form sits right under its title instead of in the middle of the screen. */
 .theme-key-avio-soft .otp-wrap {
@@ -2296,7 +2294,7 @@
    a cached photo (/api/account/avatar?v=…) and real Telegram photos (.jpg) load as before. */
 .theme-key-avio-soft .settings-avatar:has(> img:is([src$="/api/account/avatar"], [src*="/i/userpic/"][src$=".svg"])) {
   border: 0;
-  background: linear-gradient(180deg, #7fd0ff, var(--s-pick));
+  background: linear-gradient(180deg, var(--s-pick-ring), var(--s-pick));
   box-shadow: inset 0 -3px 0 rgb(0 0 0 / .08);
 }
 .theme-key-avio-soft .settings-avatar > img:is([src$="/api/account/avatar"], [src*="/i/userpic/"][src$=".svg"]) { display: none; }
@@ -2345,3 +2343,445 @@
      button off the screen. The theme's own min-height keeps the page in view. */
   .theme-key-avio-soft .home-layout { height: auto; }
 }
+
+/* ══ 2.5.0: the time of day, the seasons and a living sky ═══════════════════
+   effects/main.js (a theme effect, see theme-package.json) writes data-avio-daypart,
+   data-avio-season and data-avio-holiday on <html> and moves the lock's eyes through
+   --avio-look-x/y. Without it (effects off, an admin's own session, reduced motion) the
+   night sky means night and the day sky means day, and no season is dressed. */
+
+/* Accessories are transparent layers in the lock's own 160 x 172 space, so any frame wears them. */
+html.theme-key-avio-soft[data-avio-season="winter"] { --s-acc-head: url("images/acc-beanie.svg"); --s-acc-neck: url("images/acc-scarf-winter.svg"); }
+html.theme-key-avio-soft[data-avio-season="autumn"] { --s-acc-neck: url("images/acc-scarf-autumn.svg"); }
+html.theme-key-avio-soft[data-avio-season="spring"] { --s-acc-side: url("images/acc-flower.svg"); }
+html.theme-key-avio-soft[data-avio-season="summer"][data-avio-daypart="day"] { --s-acc-face: url("images/acc-sunglasses.svg"); }
+html.theme-key-avio-soft[data-avio-holiday="newyear"] { --s-acc-head: url("images/acc-santa.svg"); --s-acc-neck: url("images/acc-scarf-winter.svg"); }
+html.theme-key-avio-soft[data-avio-holiday="valentine"] { --s-acc-side: url("images/acc-heart.svg"); }
+html.theme-key-avio-soft[data-avio-holiday="halloween"] { --s-acc-head: url("images/acc-witch.svg"); --s-acc-neck: none; --s-acc-side: url("images/acc-pumpkin.svg"); }
+
+/* Frames: accessories (side, face, head, neck), the pupils, the drawing. At night the lock
+   wears its nightcap, so the head and face layers stay empty. */
+html.theme-key-avio-soft {
+  --s-acc: var(--s-acc-side, none), var(--s-acc-face, none), var(--s-acc-head, none), var(--s-acc-neck, none);
+  --s-acc-night: var(--s-acc-side, none), none, none, var(--s-acc-neck, none);
+  --s-f-happy: var(--s-acc), url("images/lock-pupils.svg"), url("images/lock-happy-eyes.svg");
+  --s-f-blink: var(--s-acc), none, url("images/lock-happy-blink.svg");
+  --s-f-cheer: var(--s-acc), none, url("images/lock-cheer.svg");
+  --s-f-yawn: var(--s-acc), none, url("images/lock-yawn.svg");
+  --s-f-worry: var(--s-acc), none, url("images/lock-worry.svg");
+  --s-f-doze: var(--s-acc-night), none, url("images/lock-doze.svg");
+  --s-f-doze-2: var(--s-acc-night), none, url("images/lock-doze-2.svg");
+  --s-f-peek: var(--s-acc-night), none, url("images/lock-doze-peek.svg");
+  --s-f-sleep: var(--s-acc-side, none), var(--s-acc-neck, none), url("images/lock-sleep.svg");
+  --s-f-sleep-2: var(--s-acc-side, none), var(--s-acc-neck, none), url("images/lock-sleep-2.svg");
+}
+
+@keyframes s-day-face {
+  0%, 41%, 45.5%, 69%, 81%, 100% { background-image: var(--s-f-happy); }
+  42%, 45% { background-image: var(--s-f-blink); }
+  70%, 80% { background-image: var(--s-f-cheer); }
+}
+@keyframes s-day-move {
+  0%, 66%, 86%, 100% { transform: translateY(0) scale(1); }
+  33% { transform: translateY(-4px) scale(1); }
+  70% { transform: translateY(1px) scale(1.04, .95); }
+  75% { transform: translateY(-14px) scale(.97, 1.04); }
+  80% { transform: translateY(0) scale(1.03, .97); }
+}
+@keyframes s-wake-face {
+  0%, 50% { background-image: var(--s-f-blink); }
+  55%, 100% { background-image: var(--s-f-happy); }
+}
+@keyframes s-yawn-face {
+  0%, 8% { background-image: var(--s-f-blink); }
+  12%, 66% { background-image: var(--s-f-yawn); }
+  70%, 76% { background-image: var(--s-f-blink); }
+  80%, 100% { background-image: var(--s-f-happy); }
+}
+@keyframes s-stretch {
+  0%, 10%, 72%, 100% { transform: translateY(0) scale(1); }
+  38% { transform: translateY(-6px) scale(.95, 1.09); }
+  56% { transform: translateY(-2px) scale(.99, 1.03); }
+}
+@keyframes s-eve-face {
+  0%, 55%, 59%, 100% { background-image: var(--s-f-happy); }
+  56%, 58% { background-image: var(--s-f-blink); }
+}
+@keyframes s-doze-face {
+  0%, 42% { background-image: var(--s-f-doze); }
+  46%, 84% { background-image: var(--s-f-doze-2); }
+  87%, 93% { background-image: var(--s-f-peek); }
+  96%, 100% { background-image: var(--s-f-doze); }
+}
+@keyframes s-snore {
+  0%, 49% { background-image: var(--s-f-sleep); }
+  50%, 100% { background-image: var(--s-f-sleep-2); }
+}
+
+/* Day (and the light sky without the effect): wakes up as the screen opens, blinks, hops. */
+.theme-key-avio-soft .home-layout > .home-brand::after {
+  background-image: var(--s-f-happy);
+  background-position: center, center, center, center, calc(50% + var(--avio-look-x, 0px)) calc(50% + var(--avio-look-y, 0px)), center;
+  transform-origin: 50% 92%;
+  transition: background-position .35s var(--s-ease);
+  animation: s-wake-face 1.2s linear both, s-pop .5s .6s var(--s-ease) both, s-day-move 6s 1.2s ease-in-out infinite, s-day-face 6s 1.2s linear infinite;
+}
+/* Morning: a long yawn and a stretch first. */
+:where(html[data-avio-daypart="morning"]) .theme-key-avio-soft .home-layout > .home-brand::after {
+  animation: s-yawn-face 2.8s linear both, s-stretch 2.8s ease-in-out both, s-day-move 6s 2.8s ease-in-out infinite, s-day-face 6s 2.8s linear infinite;
+}
+/* Evening: calm, no hops. */
+:where(html[data-avio-daypart="evening"]) .theme-key-avio-soft .home-layout > .home-brand::after {
+  animation: s-wake-face 1.2s linear both, s-pop .5s .6s var(--s-ease) both, s-float 4.8s 1.2s ease-in-out infinite, s-eve-face 7s 1.2s linear infinite;
+}
+/* Night (and the night sky without the effect): dozes in a nightcap, peeks with one eye. */
+:where(html[data-avio-daypart="night"], html.theme-variant-dark:not([data-avio-daypart])) .theme-key-avio-soft .home-layout > .home-brand::after {
+  background-image: var(--s-f-doze);
+  animation: s-breathe 5s ease-in-out infinite, s-doze-face 12s linear infinite;
+}
+/* Worried whenever the subscription is running out or 90% of the traffic is spent. */
+.theme-key-avio-soft .home-layout:where(:has(.status-card-warning), :has(.progress:not(.premium-progress):is([aria-valuenow="90"], [aria-valuenow="91"], [aria-valuenow="92"], [aria-valuenow="93"], [aria-valuenow="94"], [aria-valuenow="95"], [aria-valuenow="96"], [aria-valuenow="97"], [aria-valuenow="98"], [aria-valuenow="99"], [aria-valuenow="100"]))) > .home-brand::after {
+  background-image: var(--s-f-worry);
+  animation: s-tremble 3.4s ease-in-out infinite;
+}
+
+/* The sleeping lock (no subscription) wears the season's scarf and flower too. */
+.theme-key-avio-soft :is(.status-card-inactive, .devices-inactive-card, .login-brand-auth)::before { background-image: var(--s-f-sleep); }
+
+/* The traffic bar turns amber at 80% spent and red at 95%. */
+.theme-key-avio-soft .progress:not(.premium-progress):is([aria-valuenow="80"], [aria-valuenow="81"], [aria-valuenow="82"], [aria-valuenow="83"], [aria-valuenow="84"], [aria-valuenow="85"], [aria-valuenow="86"], [aria-valuenow="87"], [aria-valuenow="88"], [aria-valuenow="89"], [aria-valuenow="90"], [aria-valuenow="91"], [aria-valuenow="92"], [aria-valuenow="93"], [aria-valuenow="94"]) span { background: linear-gradient(180deg, #ffd27a, #f0a92b); }
+.theme-key-avio-soft .progress:not(.premium-progress):is([aria-valuenow="95"], [aria-valuenow="96"], [aria-valuenow="97"], [aria-valuenow="98"], [aria-valuenow="99"], [aria-valuenow="100"]) span { background: linear-gradient(180deg, #ff9aa3, var(--danger)); }
+
+/* The sky turns rosy at dawn, pink and lilac at sunset and deep blue at night (multiplied over
+   the painting, so the clouds take the colour); the night sky gets a dawn and a dusk glow. */
+html.theme-key-avio-soft[data-avio-daypart="morning"] { --s-sky-tint: linear-gradient(180deg, rgb(255 205 185 / .5), rgb(255 222 200 / .2) 45%, rgb(255 222 200 / 0) 75%); }
+html.theme-key-avio-soft[data-avio-daypart="evening"] { --s-sky-tint: linear-gradient(180deg, rgb(255 170 190 / .55), rgb(255 190 160 / .35) 45%, rgb(255 200 160 / 0) 80%); }
+html.theme-key-avio-soft[data-avio-daypart="night"] { --s-sky-tint: linear-gradient(180deg, rgb(50 70 150 / .5), rgb(90 110 180 / .2) 55%, rgb(90 110 180 / 0) 85%); }
+html.theme-key-avio-soft.theme-variant-dark[data-avio-daypart] { --s-sky-blend: normal; }
+html.theme-key-avio-soft.theme-variant-dark[data-avio-daypart="morning"] { --s-sky-tint: linear-gradient(0deg, rgb(255 150 120 / .22), rgb(255 150 120 / 0) 45%); }
+html.theme-key-avio-soft.theme-variant-dark[data-avio-daypart="evening"] { --s-sky-tint: linear-gradient(0deg, rgb(170 100 210 / .22), rgb(170 100 210 / 0) 45%); }
+html.theme-key-avio-soft.theme-variant-dark:is([data-avio-daypart="day"], [data-avio-daypart="night"]) { --s-sky-tint: none; }
+.theme-key-avio-soft.app-shell::before {
+  background-image: var(--s-sky-tint, none), var(--s-sky-art);
+  background-blend-mode: var(--s-sky-blend, multiply), normal;
+}
+
+/* The sun climbs from the left in the morning, stands high by day and sets on the right in the
+   evening; the moon takes over at night and always hangs in the night sky. */
+.theme-key-avio-soft .avio-orb {
+  position: absolute;
+  top: calc(var(--content-safe-area-top, 0px) + 34px);
+  right: 18px;
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6c9 0 38%, #ffd66b 60%, rgb(255 214 107 / 0) 72%);
+  animation: avio-orb-glow 6s ease-in-out infinite alternate;
+}
+html[data-avio-daypart="morning"] .theme-key-avio-soft .avio-orb {
+  top: calc(var(--content-safe-area-top, 0px) + 70px);
+  right: auto;
+  left: -16px;
+  width: 84px;
+  height: 84px;
+  background: radial-gradient(circle, #fff1d6 0 34%, #ffb38a 58%, rgb(255 179 138 / 0) 72%);
+}
+html[data-avio-daypart="evening"] .theme-key-avio-soft .avio-orb {
+  top: calc(var(--content-safe-area-top, 0px) + 80px);
+  right: -22px;
+  width: 96px;
+  height: 96px;
+  background: radial-gradient(circle, #ffe0b0 0 32%, #ff8a5c 56%, rgb(255 138 92 / 0) 72%);
+}
+:is(html[data-avio-daypart="night"], html.theme-variant-dark) .theme-key-avio-soft .avio-orb {
+  top: calc(var(--content-safe-area-top, 0px) + 36px);
+  right: 26px;
+  left: auto;
+  width: 38px;
+  height: 38px;
+  background: radial-gradient(circle at 38% 38%, #fffbe8 0 55%, #efe2b0 72%);
+  box-shadow: 0 0 28px 8px rgb(255 248 220 / .3);
+}
+@keyframes avio-orb-glow { from { filter: brightness(1); } to { filter: brightness(1.08); } }
+
+/* The living sky: particles the effect drops into Core's background layer. */
+.theme-key-avio-soft .avio-sky {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.theme-key-avio-soft .avio-p {
+  position: absolute;
+  top: -6%;
+  left: var(--x);
+  display: block;
+  width: var(--s);
+  height: var(--s);
+  background: center / contain no-repeat;
+  opacity: var(--o, 1);
+  will-change: transform;
+  animation: avio-fall var(--d) linear var(--delay) infinite;
+}
+.theme-key-avio-soft .avio-p-snow { background-image: url("images/fx-flake.svg"); }
+.theme-key-avio-soft .avio-p-leaf { background-image: url("images/fx-leaf.svg"); }
+.theme-key-avio-soft .avio-p-leaf-red { background-image: url("images/fx-leaf-red.svg"); }
+.theme-key-avio-soft .avio-p-petal { background-image: url("images/fx-petal.svg"); animation-duration: calc(var(--d) * 1.3); }
+.theme-key-avio-soft .avio-p-heart { top: 104%; background-image: url("images/fx-heart.svg"); animation-name: avio-rise; }
+.theme-key-avio-soft .avio-p-star {
+  top: var(--y);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 30%, rgb(200 225 255 / .55) 45%, rgb(200 225 255 / 0) 70%);
+  animation: avio-twinkle var(--d) ease-in-out var(--delay) infinite;
+}
+.theme-key-avio-soft .avio-p-shoot {
+  top: var(--y);
+  width: 130px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #fff, rgb(255 255 255 / 0));
+  animation: avio-shoot 1.2s ease-out both;
+}
+.theme-key-avio-soft .avio-p-cloud {
+  top: var(--y);
+  left: calc(-1 * var(--s));
+  height: calc(var(--s) * .47);
+  background-image: url("images/fx-cloud.svg");
+  opacity: .72;
+  animation: avio-drift var(--d) linear var(--delay) infinite;
+}
+.theme-key-avio-soft .avio-p-bat {
+  top: var(--y);
+  left: calc(-1 * var(--s));
+  height: calc(var(--s) / 2);
+  background-image: url("images/fx-bat.svg");
+  animation: avio-bat var(--d) linear var(--delay) infinite;
+}
+.theme-key-avio-soft .avio-p-firefly {
+  top: var(--y);
+  border-radius: 50%;
+  background: radial-gradient(circle, #f6ff9e 0 30%, rgb(214 255 110 / .5) 50%, rgb(214 255 110 / 0) 72%);
+  animation: avio-wander var(--d) ease-in-out var(--delay) infinite alternate, avio-glow calc(var(--d) / 3) ease-in-out var(--delay) infinite alternate;
+}
+@keyframes avio-fall {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  25% { transform: translate3d(calc(var(--drift) * .25 + var(--sway)), 28vh, 0) rotate(calc(var(--spin) * .25)); }
+  50% { transform: translate3d(calc(var(--drift) * .5 - var(--sway)), 56vh, 0) rotate(calc(var(--spin) * .5)); }
+  75% { transform: translate3d(calc(var(--drift) * .75 + var(--sway)), 84vh, 0) rotate(calc(var(--spin) * .75)); }
+  100% { transform: translate3d(var(--drift), 112vh, 0) rotate(var(--spin)); }
+}
+@keyframes avio-rise {
+  0% { transform: translate3d(0, 0, 0) scale(.8); opacity: 0; }
+  10% { opacity: var(--o, 1); }
+  50% { transform: translate3d(calc(var(--sway) * -1), -56vh, 0) scale(1); }
+  90% { opacity: var(--o, 1); }
+  100% { transform: translate3d(var(--drift), -112vh, 0) scale(.9); opacity: 0; }
+}
+@keyframes avio-twinkle {
+  0%, 100% { transform: scale(.6); opacity: .25; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+@keyframes avio-shoot {
+  0% { transform: translate3d(0, 0, 0) rotate(-32deg); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: translate3d(-260px, 160px, 0) rotate(-32deg); opacity: 0; }
+}
+@keyframes avio-drift { to { transform: translate3d(calc(100vw + var(--s) * 2), 0, 0); } }
+@keyframes avio-bat {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(calc((100vw + var(--s) * 2) * .25), -14px, 0); }
+  50% { transform: translate3d(calc((100vw + var(--s) * 2) * .5), 10px, 0); }
+  75% { transform: translate3d(calc((100vw + var(--s) * 2) * .75), -8px, 0); }
+  100% { transform: translate3d(calc(100vw + var(--s) * 2), 0, 0); }
+}
+@keyframes avio-wander { to { transform: translate3d(var(--dx), var(--dy), 0); } }
+@keyframes avio-glow { from { opacity: .25; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-key-avio-soft .home-layout > .home-brand::after { animation: none; transition: none; }
+  .theme-key-avio-soft .avio-sky { display: none; }
+}
+
+/* ── 2.5.0: empty screens, the success window, loading, notices ─────────────── */
+
+/* Every empty screen gets the lock in a pose for it instead of a line icon. */
+.theme-key-avio-soft :is(.devices-empty-card:not(.devices-inactive-card), .support-empty-state, .partner-empty, .install-empty, .security-empty)::before {
+  content: "";
+  display: block;
+  justify-self: center;
+  width: 120px;
+  aspect-ratio: 160 / 172;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.theme-key-avio-soft :is(.devices-empty-card:not(.devices-inactive-card), .support-empty-state, .partner-empty) > svg { display: none; }
+.theme-key-avio-soft .devices-empty-card:not(.devices-inactive-card)::before { background-image: url("images/lock-phone.svg"); }
+.theme-key-avio-soft .support-empty-state::before { background-image: url("images/lock-headset.svg"); }
+.theme-key-avio-soft .partner-empty::before { background-image: url("images/lock-gift.svg"); }
+.theme-key-avio-soft .install-empty::before { background-image: url("images/lock-search.svg"); }
+.theme-key-avio-soft .security-empty::before { width: 72px; margin-bottom: 8px; background-image: url("images/lock-key.svg"); }
+.theme-key-avio-soft.app-shell .devices-empty-card:not(.devices-inactive-card) {
+  padding: 28px 22px;
+  gap: 8px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 900;
+}
+.theme-key-avio-soft.app-shell .devices-empty-card:not(.devices-inactive-card) small,
+.theme-key-avio-soft.app-shell :is(.support-empty-state, .partner-empty) :is(small, p) {
+  max-width: 30ch;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+.theme-key-avio-soft.app-shell :is(.support-empty-state, .partner-empty) { gap: 8px; }
+.theme-key-avio-soft.app-shell :is(.support-empty-state, .partner-empty) strong { color: var(--text); font-size: 18px; font-weight: 900; }
+.theme-key-avio-soft.app-shell .install-empty { justify-items: center; text-align: center; }
+.theme-key-avio-soft.app-shell .install-empty p { color: var(--text); font-size: 17px; font-weight: 800; }
+.theme-key-avio-soft.app-shell .install-empty .btn { justify-self: stretch; }
+.theme-key-avio-soft.app-shell .security-empty {
+  display: grid;
+  justify-items: center;
+  padding: 8px 0 4px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* "Everything is activated": the lock throws a party above the OK button. */
+.theme-key-avio-soft .activation-success-dialog .activation-success-dialog-body {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-4, 16px);
+}
+.theme-key-avio-soft .activation-success-dialog .activation-success-dialog-body::before {
+  content: "";
+  width: 132px;
+  aspect-ratio: 160 / 172;
+  background:
+    radial-gradient(circle, #ffd76a 0 3px, transparent 4px) 8% 30% / 12px 12px no-repeat,
+    radial-gradient(circle, #ff9eb5 0 3px, transparent 4px) 92% 22% / 12px 12px no-repeat,
+    radial-gradient(circle, #8fd4ff 0 3px, transparent 4px) 16% 78% / 12px 12px no-repeat,
+    radial-gradient(circle, #86e8b8 0 3px, transparent 4px) 86% 70% / 12px 12px no-repeat,
+    url("images/lock-party.svg") center / contain no-repeat;
+  animation: s-pop .5s var(--s-ease) both, s-hop 1.6s .5s ease-in-out 2;
+}
+.theme-key-avio-soft .activation-success-dialog .activation-success-dialog-body .btn { justify-self: stretch; }
+.theme-key-avio-soft .activation-success-dialog .dialog-title-icon { color: var(--s-go); }
+
+/* Loading placeholders shimmer in the sky's colours instead of grey. */
+.theme-key-avio-soft :is(.skeleton-line, .skeleton-dot, .skeleton-pay-button, .ui-skeleton, .status-skeleton > span, .information-page-skeleton, [class^="partner-skeleton"]) {
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--s-sky) 0%, var(--s-pick-soft) 42%, var(--s-sky) 84%);
+  background-size: 220% 100%;
+}
+.theme-key-avio-soft .status-skeleton > span { border: 2px solid var(--s-edge); border-radius: 24px; }
+
+/* Notices and errors: the house danger colours, readable size, no hairlines. */
+.theme-key-avio-soft .field-error-tooltip {
+  border: 2px solid color-mix(in srgb, var(--danger) 35%, var(--s-edge));
+  border-radius: 14px;
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--danger) 25%, var(--s-edge));
+  font-size: 14px;
+  font-weight: 700;
+}
+.theme-key-avio-soft :is(.checkout-quote-error, .balance-topup-error, .gift-error) { font-size: 14px; font-weight: 700; line-height: 1.35; }
+.theme-key-avio-soft .hwid-renewal-warning {
+  display: block;
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--s-amber);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* Toasts: a white pill with a floor, like the buttons. */
+.theme-key-avio-soft .app-toast {
+  align-items: center;
+  border: 2px solid var(--s-edge);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 4px 0 var(--s-floor), 0 14px 30px rgb(20 40 70 / .14);
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 800;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.theme-key-avio-soft .app-toast[data-type="success"] [data-icon] { color: var(--s-go); }
+.theme-key-avio-soft .app-toast[data-type="error"] { border-color: color-mix(in srgb, var(--danger) 40%, var(--s-edge)); }
+.theme-key-avio-soft .app-toast[data-type="error"] [data-icon] { color: var(--danger); }
+
+/* "Turn off theme effects": Core pins it over every screen. The theme keeps it only on the
+   settings screen, as a quiet link under the list. */
+html.theme-key-avio-soft:not(:has(.settings-list)) .theme-effects-control { display: none; }
+html.theme-key-avio-soft .theme-effects-control {
+  /* relative, not static: the fixed sky of .app-shell would paint over a static block */
+  position: relative;
+  z-index: 1;
+  right: auto;
+  bottom: auto;
+  display: flex;
+  justify-content: center;
+  /* tucked under the list: up into the room the screen keeps for the tab bar */
+  margin-top: -96px;
+  padding: 0 16px calc(104px + var(--content-safe-area-bottom, 0px));
+}
+@media (min-width: 1024px) {
+  html.theme-key-avio-soft .theme-effects-control { margin-top: -24px; padding-bottom: 32px; }
+}
+html.theme-key-avio-soft .theme-effects-control .btn {
+  min-height: 44px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Information pages (Markdown documents inside the app). */
+.theme-key-avio-soft .information-page-topbar :is(a, button):first-child {
+  border: 2px solid var(--s-edge);
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: 0 3px 0 var(--s-edge);
+}
+.theme-key-avio-soft .information-page-content :is(h1, h2, h3) { font-weight: 900; letter-spacing: -.01em; text-wrap: balance; }
+.theme-key-avio-soft .information-page-content :is(p, li) { font-size: 16px; line-height: 1.55; }
+.theme-key-avio-soft .information-page-content a { color: var(--s-link); font-weight: 800; }
+.theme-key-avio-soft .information-page-content blockquote {
+  margin-inline: 0;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--s-sky);
+  color: var(--text);
+}
+.theme-key-avio-soft .information-page-content table {
+  overflow: hidden;
+  border: 2px solid var(--s-edge);
+  border-radius: 16px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.theme-key-avio-soft .information-page-content :is(th, td) { padding: 10px 12px; border: 0; border-bottom: 2px solid var(--s-edge); }
+.theme-key-avio-soft .information-page-content tr:last-child > td { border-bottom: 0; }
+.theme-key-avio-soft .information-page-content th { background: var(--s-sky); font-weight: 900; text-align: left; }
+.theme-key-avio-soft .information-page-navigation-link { border-radius: 12px; font-weight: 800; }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-key-avio-soft .activation-success-dialog .activation-success-dialog-body::before { animation: none; }
+}
+.theme-key-avio-soft .information-page-topbar p { display: none; }
+.theme-key-avio-soft .information-page-topbar h1 { font-size: 17px; font-weight: 900; }

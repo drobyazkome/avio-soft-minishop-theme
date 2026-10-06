@@ -148,3 +148,6 @@ only with the administrator's permission.
 `theme_api: 1`, package format v2 — Core 3.8.0 or newer. For older Core use release
 [v2.4.6](https://github.com/drobyazkome/avio-soft-minishop-theme/releases/tag/v2.4.6).
 Every commit is checked by Core's package validator in GitHub Actions; a tag builds a release with the zip.
+
+Since 2.5.1 the theme supports Core's compact home (`WEBAPP_COMPACT_HOME_ENABLED`): the lock and
+its moods, and the mint, amber and sleeping cards work there too.

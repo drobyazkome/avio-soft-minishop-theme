@@ -213,8 +213,8 @@
 .theme-key-avio-soft .home-bottom { gap: 14px; }
 
 /* No subscription: the lock is open and asleep. */
-.theme-key-avio-soft .home-layout:has(.status-card-inactive) { grid-template-rows: auto minmax(0, 1fr); }
-.theme-key-avio-soft .home-bottom:has(.status-card-inactive) { align-self: stretch; grid-template-rows: 1fr auto; }
+.theme-key-avio-soft .home-layout:has(.status-card-inactive, .home-compact-summary-inactive) { grid-template-rows: auto minmax(0, 1fr); }
+.theme-key-avio-soft .home-bottom:has(.status-card-inactive, .home-compact-summary-inactive) { align-self: stretch; grid-template-rows: 1fr auto; }
 .theme-key-avio-soft .status-card-inactive {
   display: grid;
   align-self: center;
@@ -632,12 +632,12 @@
 
 /* The lock is the hero: it fills the free space between the logo and the status
    at any screen height. Its motion (breathing, blinking, floating z's) lives inside the SVGs. */
-.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand {
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand {
   align-self: stretch;
   width: 100%;
   grid-template-rows: auto minmax(0, 1fr);
 }
-.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after {
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand::after {
   content: "";
   align-self: center;
   justify-self: stretch;
@@ -1279,9 +1279,9 @@
   .theme-key-avio-soft.app-shell .bottom-nav :is(.nav-attention-dot, .nav-badge-floating) { top: 6px; right: 6px; transform: none; }
   /* The logo lives in the bar, so the home screen keeps only the lock. */
   .theme-key-avio-soft .home-layout > .home-brand > :is(.brand-mark, .home-logo-slot) { display: none; }
-  .theme-key-avio-soft .home-layout:has(.status-card-inactive) > .home-brand { display: none; }
+  .theme-key-avio-soft .home-layout:has(.status-card-inactive, .home-compact-summary-inactive) > .home-brand { display: none; }
   .theme-key-avio-soft .home-layout { min-height: calc(100dvh - 160px); grid-template-rows: minmax(0, 1fr); align-content: center; }
-  .theme-key-avio-soft .home-layout:has(.status-card-inactive) { grid-template-rows: minmax(0, 1fr); }
+  .theme-key-avio-soft .home-layout:has(.status-card-inactive, .home-compact-summary-inactive) { grid-template-rows: minmax(0, 1fr); }
   .theme-key-avio-soft .home-bottom { width: min(100%, 560px); justify-self: center; }
 }
 
@@ -1327,7 +1327,7 @@
 @keyframes s-fill { from { transform: scaleX(0); } }
 
 /* The home lock's moods (day, morning, evening, night, worry) live in the 2.5.0 block. */
-.theme-key-avio-soft :is(.status-card-inactive, .devices-inactive-card, .login-brand-auth)::before {
+.theme-key-avio-soft :is(.status-card-inactive, .home-compact-summary-inactive, .devices-inactive-card, .login-brand-auth)::before {
   transform-origin: 50% 92%;
   animation: s-breathe 4.4s ease-in-out infinite, s-snore 3s linear infinite;
 }
@@ -1347,7 +1347,7 @@
 .theme-key-avio-soft .progress span { transform-origin: left center; animation: s-fill 0.8s var(--s-ease) both; }
 @media (prefers-reduced-motion: reduce) {
   .theme-key-avio-soft .home-layout > .home-brand::after,
-  .theme-key-avio-soft :is(.status-card-inactive, .devices-inactive-card, .login-brand-auth)::before,
+  .theme-key-avio-soft :is(.status-card-inactive, .home-compact-summary-inactive, .devices-inactive-card, .login-brand-auth)::before,
   .theme-key-avio-soft :is(.period-card, .tariff-row, .tariff-action-card, .change-action-row, .install-app-button).active,
   .theme-key-avio-soft .bottom-nav button.active > svg,
   .theme-key-avio-soft .progress span { animation: none; }
@@ -1509,13 +1509,13 @@
   .theme-key-avio-soft .home-layout { gap: 0; }
 }
 @media (min-width: 1024px) {
-  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) {
+  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) {
     grid-template-rows: auto auto;
     align-content: center;
     gap: var(--sp-6, 24px);
   }
-  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand { grid-template-rows: auto; }
-  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after { height: 160px; min-height: 160px; }
+  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand { grid-template-rows: auto; }
+  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand::after { height: 160px; min-height: 160px; }
 }
 /* Edit reads as an action (sky), close stays neutral: the two squares never look alike. */
 .theme-key-avio-soft.app-shell .checkout-tariff-card.has-adjustable-limits .checkout-tariff-edit {
@@ -1575,7 +1575,7 @@
 
 /* Home: the lock takes only the free space. On a short window it shrinks, and when less
    than 56 px is left it steps aside instead of pushing the page into a scroll. */
-.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after {
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand::after {
   min-height: 0;
   background-size: auto clamp(0px, (100% - 56px) * 999, 100%);
 }
@@ -1665,7 +1665,7 @@
   .theme-key-avio-soft .progress { height: 10px; margin-top: 6px; }
   .theme-key-avio-soft .home-bottom .action-stack { gap: 6px; }
   .theme-key-avio-soft .home-bottom .action-stack .btn { min-height: 46px; }
-  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand { gap: 0; }
+  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand { gap: 0; }
   .theme-key-avio-soft {
     --bottom-nav-height: 60px;
     --bottom-nav-clearance: calc(var(--bottom-nav-height) + var(--bottom-nav-bottom) + 14px);
@@ -2328,8 +2328,8 @@
 }
 /* The lock keeps the free space under the logo: full width (a centred flex item would shrink
    to nothing), up to 176 px tall, centred in whatever room is left, and it gives way first. */
-.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand { justify-content: flex-start; }
-.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after {
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand { justify-content: flex-start; }
+.theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand::after {
   flex: 0 1 176px;
   align-self: stretch;
   width: 100%;
@@ -2338,7 +2338,7 @@
   margin-block: auto;
 }
 @media (min-width: 1024px) {
-  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive)) > .home-brand::after { flex-basis: 160px; min-height: 160px; }
+  .theme-key-avio-soft .home-layout:has(.status-card:not(.status-card-inactive), .home-compact-summary:not(.home-compact-summary-inactive)) > .home-brand::after { flex-basis: 160px; min-height: 160px; }
   /* Core fixes the home height to the window; under the floating bar that pushed the main
      button off the screen. The theme's own min-height keeps the page in view. */
   .theme-key-avio-soft .home-layout { height: auto; }
@@ -2440,13 +2440,13 @@ html.theme-key-avio-soft {
   animation: s-breathe 5s ease-in-out infinite, s-doze-face 12s linear infinite;
 }
 /* Worried whenever the subscription is running out or 90% of the traffic is spent. */
-.theme-key-avio-soft .home-layout:where(:has(.status-card-warning), :has(.progress:not(.premium-progress):is([aria-valuenow="90"], [aria-valuenow="91"], [aria-valuenow="92"], [aria-valuenow="93"], [aria-valuenow="94"], [aria-valuenow="95"], [aria-valuenow="96"], [aria-valuenow="97"], [aria-valuenow="98"], [aria-valuenow="99"], [aria-valuenow="100"]))) > .home-brand::after {
+.theme-key-avio-soft .home-layout:where(:has(.status-card-warning, .home-compact-summary-warning), :has(.progress:not(.premium-progress):is([aria-valuenow="90"], [aria-valuenow="91"], [aria-valuenow="92"], [aria-valuenow="93"], [aria-valuenow="94"], [aria-valuenow="95"], [aria-valuenow="96"], [aria-valuenow="97"], [aria-valuenow="98"], [aria-valuenow="99"], [aria-valuenow="100"]))) > .home-brand::after {
   background-image: var(--s-f-worry);
   animation: s-tremble 3.4s ease-in-out infinite;
 }
 
 /* The sleeping lock (no subscription) wears the season's scarf and flower too. */
-.theme-key-avio-soft :is(.status-card-inactive, .devices-inactive-card, .login-brand-auth)::before { background-image: var(--s-f-sleep); }
+.theme-key-avio-soft :is(.status-card-inactive, .home-compact-summary-inactive, .devices-inactive-card, .login-brand-auth)::before { background-image: var(--s-f-sleep); }
 
 /* The traffic bar turns amber at 80% spent and red at 95%. */
 .theme-key-avio-soft .progress:not(.premium-progress):is([aria-valuenow="80"], [aria-valuenow="81"], [aria-valuenow="82"], [aria-valuenow="83"], [aria-valuenow="84"], [aria-valuenow="85"], [aria-valuenow="86"], [aria-valuenow="87"], [aria-valuenow="88"], [aria-valuenow="89"], [aria-valuenow="90"], [aria-valuenow="91"], [aria-valuenow="92"], [aria-valuenow="93"], [aria-valuenow="94"]) span { background: linear-gradient(180deg, #ffd27a, #f0a92b); }
@@ -2785,3 +2785,91 @@ html.theme-key-avio-soft .theme-effects-control .btn {
 }
 .theme-key-avio-soft .information-page-topbar p { display: none; }
 .theme-key-avio-soft .information-page-topbar h1 { font-size: 17px; font-weight: 900; }
+
+/* ══ 2.5.1: Core's compact home (WEBAPP_COMPACT_HOME_ENABLED) ═══════════════
+   One summary card (.home-compact-summary) replaces the status and traffic cards. The lock
+   rules above already know it; here it gets the same mint, amber and sleeping looks. */
+.theme-key-avio-soft.app-shell section.home-compact-summary {
+  gap: 12px;
+  padding: 16px 16px 14px;
+  border: 2px solid color-mix(in srgb, var(--s-go) 30%, var(--s-edge));
+  border-radius: 24px;
+  background: var(--s-mint);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--s-go) 30%, var(--s-edge));
+}
+.theme-key-avio-soft .home-compact-summary .compact-summary-head { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+.theme-key-avio-soft .home-compact-summary .compact-status-icon { display: none; }
+.theme-key-avio-soft .home-compact-summary .compact-status-copy h2 { gap: 6px; color: var(--text); font-size: 19px; font-weight: 900; line-height: 1.15; }
+.theme-key-avio-soft .home-compact-summary .compact-status-copy p { gap: 6px; margin-top: 5px; color: var(--muted); font-size: 14px; font-weight: 700; }
+.theme-key-avio-soft .home-compact-summary .compact-status-copy p > span:first-child { color: var(--text); font-weight: 800; }
+.theme-key-avio-soft.app-shell .home-compact-summary .compact-tariff-action { min-height: 40px; padding: 6px 12px; font-size: 14px; }
+.theme-key-avio-soft.app-shell .home-compact-summary .compact-balance { min-height: 40px; padding: 6px 12px; border: 2px solid var(--s-edge); border-radius: 14px; background: var(--panel); }
+.theme-key-avio-soft .home-compact-summary .compact-balance strong { font-size: 15px; font-weight: 900; }
+
+/* Traffic: the theme's fat meters with a readable label line. */
+.theme-key-avio-soft .home-compact-summary .compact-traffic-grid { gap: 12px; padding-top: 12px; border-top: 2px solid color-mix(in srgb, var(--s-go) 18%, var(--s-edge)); }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-label { flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 13px; }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-label > span { max-width: 100%; color: var(--text); font-weight: 900; }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-label small { color: var(--muted); font-weight: 700; }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-label strong { margin-left: auto; color: var(--text); font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.theme-key-avio-soft.app-shell .home-compact-summary .compact-traffic-help-trigger.btn {
+  width: 22px;
+  height: 22px;
+  min-height: 22px;
+  flex-basis: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.theme-key-avio-soft .home-compact-summary .compact-traffic-help-icon { width: 15px; height: 15px; }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-item .progress { margin-top: 8px; }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-help {
+  border: 2px solid var(--s-edge);
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: 0 4px 0 var(--s-edge), 0 12px 30px rgb(30 45 70 / .16);
+}
+.theme-key-avio-soft .home-compact-summary .compact-traffic-help-reset small,
+.theme-key-avio-soft .home-compact-summary .compact-traffic-help-scope > small { font-size: 12px; font-weight: 700; }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-help-reset strong { font-size: 15px; font-weight: 900; }
+.theme-key-avio-soft .home-compact-summary .compact-traffic-help-scope span { padding: 3px 8px; font-size: 12px; font-weight: 700; }
+
+/* Running out: amber, like the full status card. */
+.theme-key-avio-soft.app-shell section.home-compact-summary.home-compact-summary-warning {
+  border-color: var(--s-amber-floor);
+  background: var(--s-amber);
+  box-shadow: 0 4px 0 var(--s-amber-floor);
+}
+.theme-key-avio-soft .home-compact-summary-warning .compact-status-copy :is(h2, p, p > span:first-child) { color: var(--warning-text); }
+.theme-key-avio-soft .home-compact-summary-warning .compact-traffic-grid { border-top-color: var(--s-amber-floor); }
+
+/* No subscription: the open lock sleeps above the words, no card around them. */
+.theme-key-avio-soft .home-bottom:has(.home-compact-summary-inactive) { align-self: stretch; grid-template-rows: 1fr auto; }
+.theme-key-avio-soft.app-shell section.home-compact-summary.home-compact-summary-inactive {
+  align-self: center;
+  justify-items: center;
+  gap: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.theme-key-avio-soft .home-compact-summary-inactive::before {
+  content: "";
+  width: clamp(128px, 24dvh, 200px);
+  aspect-ratio: 160 / 172;
+  background: var(--s-hero-sleep) center / contain no-repeat;
+  background-image: var(--s-f-sleep);
+}
+.theme-key-avio-soft .home-compact-summary-inactive .compact-summary-head { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+.theme-key-avio-soft .home-compact-summary-inactive .compact-status-copy h2 { justify-content: center; color: var(--text); font-size: 26px; }
+.theme-key-avio-soft .home-compact-summary-inactive .compact-status-copy p { justify-content: center; }
+.theme-key-avio-soft .home-compact-summary-inactive :is(.compact-summary-head-actions, .compact-traffic-grid) { width: 100%; }
+
+@media (max-height: 760px) and (max-width: 1023px) {
+  .theme-key-avio-soft.app-shell section.home-compact-summary:not(.home-compact-summary-inactive) { gap: 10px; padding: 12px 14px 12px; }
+  .theme-key-avio-soft .home-compact-summary .compact-status-copy h2 { font-size: 17px; }
+  .theme-key-avio-soft .home-compact-summary .compact-traffic-grid { gap: 8px; padding-top: 10px; }
+}

@@ -2966,3 +2966,43 @@ html.theme-key-avio-soft .theme-effects-control .btn {
 @media (prefers-reduced-motion: reduce) {
   .theme-key-avio-soft .maintenance-icon { animation: none; }
 }
+
+/* "Scan QR" shortcut under the home logo (added by effects/main.js, opens Core's scanner). */
+.theme-key-avio-soft .home-brand > .avio-qr-shortcut {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex: none;
+  align-self: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  margin-top: 6px;
+  padding: 0 16px 0 14px;
+  border: 2px solid var(--s-pick-ring);
+  border-radius: 999px;
+  background: var(--panel);
+  box-shadow: 0 3px 0 var(--s-pick-ring);
+  color: var(--s-link);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform .08s ease-out, box-shadow .08s ease-out;
+}
+.theme-key-avio-soft .home-brand > .avio-qr-shortcut:active { transform: translateY(3px); box-shadow: 0 0 0 var(--s-pick-ring); }
+.theme-key-avio-soft .home-brand > .avio-qr-shortcut:focus-visible { outline: 3px solid var(--s-pick-ring); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  .theme-key-avio-soft .home-brand > .avio-qr-shortcut:hover { background: var(--s-pick-soft); }
+}
+/* On a computer the QR code is shown, not scanned: the shortcut is for phones. */
+@media (min-width: 1024px) {
+  .theme-key-avio-soft .home-brand > .avio-qr-shortcut { display: none; }
+}
+/* Short phones: a smaller shortcut; with a trial offer and no subscription there is no room. */
+@media (max-height: 760px) and (max-width: 1023px) {
+  .theme-key-avio-soft .home-brand > .avio-qr-shortcut { min-height: 34px; margin-top: 2px; padding: 0 12px 0 10px; font-size: 13px; }
+  .theme-key-avio-soft .home-layout:has(.home-bottom :is(.status-card-inactive, .home-compact-summary-inactive) ~ *:not(.action-stack)) > .home-brand > .avio-qr-shortcut { display: none; }
+}

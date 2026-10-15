@@ -155,6 +155,3 @@ its moods, and the mint, amber and sleeping cards work there too.
 2.5.2 is checked on Core 3.8.2: payment history as theme cards, a maintenance screen with the lock,
 QR windows above the tab bar, an unclipped trial card, and the theme effects link only on the main
 settings screen and never over a window.
-
-Since 2.5.3 the home screen has a "Scan QR" button under the logo on phones: it opens Settings and
-Core's QR sign-in scanner right away. The theme effect adds it, so it is absent with effects off.

@@ -119,38 +119,6 @@ function particle(kind, index, total) {
   return node;
 }
 
-
-/* "Scan QR" on home: Core keeps its QR scanner in Settings ("scan-qr-login"). The shortcut
-   switches to Settings and presses that row, so Telegram's own scanner opens right away.
-   It hides once Settings has been seen without the row (QR sign-in switched off). */
-const QR_ICON =
-  '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-  '<path d="M17 12v4a1 1 0 0 1-1 1h-4"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M17 8V7"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
-  '<path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M7 17h.01"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="5" height="5" rx="1"/></svg>';
-const QR_STORE = "avio-qr-login";
-
-function qrKnownOff() {
-  try {
-    return localStorage.getItem(QR_STORE) === "off";
-  } catch {
-    return false;
-  }
-}
-
-function rememberQr(available) {
-  try {
-    localStorage.setItem(QR_STORE, available ? "on" : "off");
-  } catch {
-    /* private mode: the shortcut simply stays */
-  }
-}
-
-function settingsTab() {
-  return [...document.querySelectorAll(".bottom-nav button")].find((button) =>
-    button.querySelector("svg.lucide-settings")
-  );
-}
-
 export function mount(host, initial) {
   let context = initial;
   const root = document.documentElement;
@@ -281,63 +249,10 @@ export function mount(host, initial) {
     }, 60_000);
   }
 
-
-  /* The QR shortcut under the home logo. */
-  function qrShortcut() {
-    const header = host.targets("home.header.surface")[0];
-    const brand = header?.parentElement;
-    const existing = document.querySelector(".avio-qr-shortcut");
-    if (!brand || qrKnownOff()) {
-      existing?.remove();
-      return;
-    }
-    if (existing && existing.parentElement === brand) return;
-    existing?.remove();
-    const english = /settings/i.test(settingsTab()?.getAttribute("aria-label") || "");
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "avio-qr-shortcut";
-    button.innerHTML = QR_ICON + "<span></span>";
-    button.querySelector("span").textContent = english ? "Scan QR" : "Сканировать QR";
-    button.addEventListener("click", () => {
-      const tab = settingsTab();
-      if (!tab) return;
-      tab.click();
-      const started = Date.now();
-      const press = () => {
-        if (host.signal.aborted) return;
-        const row = document.querySelector('[data-webapp-action="scan-qr-login"]');
-        if (row) {
-          rememberQr(true);
-          row.click();
-        } else if (Date.now() - started < 3000) host.timeout(press, 80);
-        else if (document.querySelector(".settings-profile")) {
-          rememberQr(false);
-          qrShortcut();
-        }
-      };
-      host.timeout(press, 80);
-    });
-    const slot = brand.querySelector(".home-logo-slot");
-    if (slot) slot.after(button);
-    else brand.prepend(button);
-  }
-
-  /* Settings tells whether QR sign-in is on: remember it for the home shortcut. */
-  function noteSettings() {
-    if (!document.querySelector(".settings-profile")) return;
-    rememberQr(Boolean(document.querySelector('[data-webapp-action="scan-qr-login"]')));
-  }
-
   applyState();
   look(0, 0);
   reconcileSky(true);
-  qrShortcut();
-  host.watchTargets(() => {
-    reconcileSky(false);
-    noteSettings();
-    qrShortcut();
-  });
+  host.watchTargets(() => reconcileSky(false));
   host.listen(window, "pointermove", follow);
   host.listen(window, "pointerdown", follow);
   shootingStar();
@@ -354,7 +269,6 @@ export function mount(host, initial) {
       if (frame) cancelAnimationFrame(frame);
       for (const sky of skies.values()) sky.remove();
       skies.clear();
-      document.querySelector(".avio-qr-shortcut")?.remove();
       delete root.dataset.avioDaypart;
       delete root.dataset.avioSeason;
       delete root.dataset.avioHoliday;

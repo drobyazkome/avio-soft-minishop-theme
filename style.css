@@ -2722,7 +2722,8 @@ html[data-avio-daypart="evening"] .theme-key-avio-soft .avio-orb {
 
 /* "Turn off theme effects": Core pins it over every screen. The theme keeps it only on the
    settings screen, as a quiet link under the list. */
-html.theme-key-avio-soft:not(:has(.settings-list)) .theme-effects-control { display: none; }
+/* Only under the main settings list, and never over an open window (it sits above the shell). */
+html.theme-key-avio-soft:is(:not(:has(.settings-profile)), :has(.dialog, [role="dialog"])) .theme-effects-control { display: none; }
 html.theme-key-avio-soft .theme-effects-control {
   /* relative, not static: the fixed sky of .app-shell would paint over a static block */
   position: relative;
@@ -2872,4 +2873,96 @@ html.theme-key-avio-soft .theme-effects-control .btn {
   .theme-key-avio-soft.app-shell section.home-compact-summary:not(.home-compact-summary-inactive) { gap: 10px; padding: 12px 14px 12px; }
   .theme-key-avio-soft .home-compact-summary .compact-status-copy h2 { font-size: 17px; }
   .theme-key-avio-soft .home-compact-summary .compact-traffic-grid { gap: 8px; padding-top: 10px; }
+}
+
+/* ══ 2.5.2 ══════════════════════════════════════════════════════════════════ */
+
+/* No subscription with a trial offer, the server status and a button below: the sleeping lock
+   gets smaller and no card is squeezed below its content (Core cards clip, so a squeezed
+   trial card used to hide its own button). */
+.theme-key-avio-soft .home-bottom:has(.status-card-inactive, .home-compact-summary-inactive) > * { min-height: min-content; }
+.theme-key-avio-soft .home-bottom:has(.trial-card, .server-status-card, .home-balance-card) :is(.status-card-inactive, .home-compact-summary-inactive)::before {
+  width: clamp(88px, 15dvh, 150px);
+}
+.theme-key-avio-soft .home-bottom:has(.trial-card, .server-status-card, .home-balance-card) :is(.status-card-inactive, .home-compact-summary-inactive) { gap: 10px; }
+
+/* Payment history (Core 3.8.2): Core's 960 px table does not fit the theme's column, so on
+   every width it is a stack of theme cards (Core does this itself only below 720 px). The
+   payment number heads each card. */
+.theme-key-avio-soft .payment-history-title h1 { font-size: 22px; font-weight: 900; }
+.theme-key-avio-soft .payment-history-title p { font-weight: 700; }
+.theme-key-avio-soft .webapp-table-wrap { overflow: visible; border: 0; background: transparent; }
+.theme-key-avio-soft .webapp-table-wrap table { display: block; min-width: 0; table-layout: auto; }
+.theme-key-avio-soft .webapp-table-wrap :is(thead, colgroup) { display: none; }
+.theme-key-avio-soft .webapp-table-wrap tbody { display: grid; gap: 14px; }
+.theme-key-avio-soft .webapp-table-wrap tr {
+  display: grid;
+  gap: 8px;
+  padding: 16px 16px 14px;
+  border: 2px solid var(--s-edge);
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: 0 4px 0 var(--s-edge);
+}
+.theme-key-avio-soft .webapp-table-wrap td {
+  display: grid;
+  grid-template-columns: minmax(0, 35%) minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: normal;
+}
+.theme-key-avio-soft .webapp-table-wrap td::before { content: attr(data-label); color: var(--muted); font-size: 13px; font-weight: 700; }
+.theme-key-avio-soft .webapp-table-wrap tr > td:first-child {
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--s-edge);
+  font-size: 17px;
+  font-weight: 900;
+}
+.theme-key-avio-soft .admin-pagination-summary { color: var(--muted); font-size: 13px; font-weight: 700; }
+
+/* Core opens some windows (QR scan, QR approval) inside the screen: the screen's finished entry
+   animation keeps a transform and the settings block has z-index 1, both stacking contexts under
+   the tab bar, so the bar covered the window's bottom. While a window is open its ancestors
+   inside the screen stop stacking. */
+.theme-key-avio-soft main.content:has(.dialog) { animation: none; transform: none; }
+.theme-key-avio-soft main.content :has(.dialog) { z-index: auto; }
+
+/* Compact card (Core 3.8.2): auto-renewal and balance buttons read like the rest of the card. */
+.theme-key-avio-soft .home-compact-summary .compact-action-copy > :is(span, strong) { font-size: 14px; font-weight: 900; }
+.theme-key-avio-soft .home-compact-summary .compact-action-copy > small { color: var(--muted); font-size: 12px; font-weight: 700; }
+.theme-key-avio-soft.app-shell .home-compact-summary .compact-auto-renew-action { min-height: 44px; border-radius: 14px; }
+.theme-key-avio-soft.app-shell .home-compact-summary .compact-balance { min-height: 44px; }
+
+/* Sign-in: the logo on top and the sleeping lock under it, in the same order as on home. */
+.theme-key-avio-soft .login-brand-auth::before { order: 1; }
+
+/* Maintenance (Core 3.8.2): the worried lock instead of the clock, a theme card around the words. */
+.theme-key-avio-soft .maintenance-brand { font-size: 0; }
+.theme-key-avio-soft .maintenance-brand .brand-mark { width: 104px; height: 64px; }
+.theme-key-avio-soft.app-shell .card.maintenance-card {
+  gap: 22px;
+  border: 2px solid var(--s-edge);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: 0 4px 0 var(--s-edge);
+}
+.theme-key-avio-soft .maintenance-icon {
+  width: 112px;
+  height: 120px;
+  border: 0;
+  border-radius: 0;
+  background: url("images/lock-worry.svg") center / contain no-repeat;
+  animation: s-tremble 3.4s ease-in-out infinite;
+}
+.theme-key-avio-soft .maintenance-icon > svg { display: none; }
+.theme-key-avio-soft .maintenance-copy h1 { font-size: 24px; font-weight: 900; text-wrap: balance; }
+.theme-key-avio-soft .maintenance-copy p { color: var(--muted); font-size: 15px; font-weight: 700; line-height: 1.5; text-align: center; }
+@media (prefers-reduced-motion: reduce) {
+  .theme-key-avio-soft .maintenance-icon { animation: none; }
 }

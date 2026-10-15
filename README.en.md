@@ -151,3 +151,7 @@ Every commit is checked by Core's package validator in GitHub Actions; a tag bui
 
 Since 2.5.1 the theme supports Core's compact home (`WEBAPP_COMPACT_HOME_ENABLED`): the lock and
 its moods, and the mint, amber and sleeping cards work there too.
+
+2.5.2 is checked on Core 3.8.2: payment history as theme cards, a maintenance screen with the lock,
+QR windows above the tab bar, an unclipped trial card, and the theme effects link only on the main
+settings screen and never over a window.

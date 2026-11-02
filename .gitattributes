@@ -6,3 +6,4 @@
 /.gitattributes export-ignore
 /.github export-ignore
 /screenshots export-ignore
+/tools export-ignore

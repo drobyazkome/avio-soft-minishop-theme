@@ -1078,7 +1078,7 @@
 }
 .theme-key-avio-soft .input::placeholder { color: var(--muted); font-weight: 600; opacity: 1; }
 .theme-key-avio-soft .support-field > label,
-.theme-key-avio-soft .support-field > span:first-child { color: var(--text); font-size: 14px; font-weight: 900; }
+.theme-key-avio-soft :is(.support-field, .support-choice-field) > span:first-child { color: var(--text); font-size: 14px; font-weight: 900; }
 .theme-key-avio-soft.app-shell .rt-surface { padding: var(--sp-2, 8px); }
 .theme-key-avio-soft.app-shell .rt-tool {
   min-width: 36px;

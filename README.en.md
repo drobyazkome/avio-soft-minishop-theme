@@ -152,6 +152,13 @@ Every commit is checked by Core's package validator in GitHub Actions; a tag bui
 Since 2.5.1 the theme supports Core's compact home (`WEBAPP_COMPACT_HOME_ENABLED`): the lock and
 its moods, and the mint, amber and sleeping cards work there too.
 
+2.5.6 is checked on Core 3.8.5. Core now draws the headers of Devices, Bonuses, gifts, Support,
+Security, Notifications, Payment history and the partner cabinet with one component and adds its own
+Back link. The theme styles them like its earlier headers: a large heavy title and a bare accent
+icon, and Back is a chunky button on Payment history too. The partner cabinet title no longer breaks
+letter by letter on phones: "How it works" moves to its own row. On Core 3.8.0–3.8.4 the theme works
+as before.
+
 2.5.2 is checked on Core 3.8.2: payment history as theme cards, a maintenance screen with the lock,
 QR windows above the tab bar, an unclipped trial card, and the theme effects link only on the main
 settings screen and never over a window.

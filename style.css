@@ -1119,8 +1119,9 @@
 .theme-key-avio-soft :is(.language-select-item, .install-platform-content [role="option"], .support-select-content [role="option"], .payment-method-select-item)[data-highlighted] { background: var(--s-pick-soft); }
 .theme-key-avio-soft :is(.language-select-item, .install-platform-content [role="option"], .support-select-content [role="option"], .payment-method-select-item) > :last-child:is(svg) { margin-left: auto; color: var(--s-pick); }
 
-/* Sub-screens (notifications, security, partner): a real back button and calm headers. */
-.theme-key-avio-soft.app-shell :is(.security-back, .partner-back, .support-back-button) {
+/* Sub-screens (notifications, security, partner, payment history): a real back button and calm headers.
+   Core 3.8.5 draws the back link with one component, .screen-back-link. */
+.theme-key-avio-soft.app-shell :is(.security-back, .partner-back, .support-back-button, .screen-back-link) {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -1134,9 +1135,38 @@
   font-size: 15px;
   font-weight: 900;
 }
-.theme-key-avio-soft.app-shell :is(.security-back, .partner-back, .support-back-button):active { transform: translateY(3px); box-shadow: 0 0 0 var(--s-edge); }
+.theme-key-avio-soft.app-shell :is(.security-back, .partner-back, .support-back-button, .screen-back-link):active { transform: translateY(3px); box-shadow: 0 0 0 var(--s-edge); }
+.theme-key-avio-soft.app-shell .screen-back-link:hover { color: var(--s-link); }
 .theme-key-avio-soft :is(.security-heading, .partner-overview-head) svg:first-child { color: var(--s-pick); }
 .theme-key-avio-soft.app-shell :is(.security-heading strong, .security-heading h1, .security-heading h2, .partner-overview-title, .partner-section-title) { color: var(--text); font-weight: 900; }
+
+/* Core 3.8.5 heads devices, bonuses, gifts, support, security, notifications, payment
+   history and the partner cabinet with one component, .screen-heading. Give it the
+   theme's header: a bare accent icon and a heavy ink title that wraps between words.
+   The selectors above stay for Core 3.8.0-3.8.4. */
+.theme-key-avio-soft.app-shell .screen-heading { gap: var(--sp-3, 12px); }
+.theme-key-avio-soft.app-shell .screen-heading .screen-heading-icon {
+  width: auto;
+  min-width: 32px;
+  height: auto;
+  background: transparent;
+  color: var(--s-pick);
+}
+.theme-key-avio-soft.app-shell .screen-heading .screen-heading-icon svg { width: 32px; height: 32px; }
+.theme-key-avio-soft.app-shell .screen-heading .screen-heading-copy :is(h1, h2) {
+  color: var(--text);
+  font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: break-word;
+}
+.theme-key-avio-soft.app-shell .screen-heading .screen-heading-copy h1 { font-size: 22px; }
+.theme-key-avio-soft.app-shell .screen-heading .screen-heading-copy h2 { font-size: 18px; }
+.theme-key-avio-soft.app-shell .screen-heading .screen-heading-copy p { font-weight: 700; }
+/* The theme's "How it works" button is too wide to share a row with the title on phones. */
+@media (max-width: 520px) {
+  .theme-key-avio-soft.app-shell .partner-overview-head.has-actions { grid-template-columns: auto minmax(0, 1fr); }
+  .theme-key-avio-soft.app-shell .partner-overview-head .screen-heading-actions { grid-column: 1 / -1; }
+}
 
 /* Notification switches: the same chunky switch as the balance toggle. */
 .theme-key-avio-soft.app-shell .notification-preferences__switch {
@@ -1291,7 +1321,7 @@
 .theme-key-avio-soft.app-shell .partner-status { border-radius: 999px; font-weight: 800; }
 .theme-key-avio-soft.app-shell .rt-toolbar { flex-wrap: wrap; gap: 6px; }
 .theme-key-avio-soft.app-shell .rt-tool { min-width: 40px; height: 40px; }
-.theme-key-avio-soft.app-shell :is(.rt-tool, .security-back, .partner-back, .support-back-button, .support-select-trigger, .notification-preferences__switch, .partner-tutorial-button, .device-danger-button):focus-visible {
+.theme-key-avio-soft.app-shell :is(.rt-tool, .security-back, .partner-back, .support-back-button, .screen-back-link, .support-select-trigger, .notification-preferences__switch, .partner-tutorial-button, .device-danger-button):focus-visible {
   outline: 3px solid var(--s-pick-ring);
   outline-offset: 2px;
 }
